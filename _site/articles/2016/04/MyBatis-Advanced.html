@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>MyBatis association collection and discriminator &mdash; Zale - Zale's Blog 张乐博客 个人网站</title>
+
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="alternate" type="application/atom+xml" title="overtrue" href="/atom.xml">
+
+    <link rel="apple-touch-icon-precomposed" href="/assets/images/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/images/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/images/apple-touch-icon-114x114-precomposed.png">
+    
+    <meta property="og:title" content="MyBatis association collection and discriminator">
+      
+    <meta name="keywords" content="Zale, 张乐, blog, 博客, ZhangLe, 个人网站">
+    <meta name="og:keywords" content="Zale, 张乐, blog, 博客, ZhangLe, 个人网站">
+      
+    <meta name="description" content="Quick note about MyBatis association, collection and discriminator.">
+    <meta name="og:description" content="Quick note about MyBatis association, collection and discriminator.">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="//articles/2016/04/MyBatis-Advanced.html">
+    <meta property="og:site_name" content="zale.site">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2016-04-17">
+    
+
+    <!-- Favicon Icon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <!-- 3rd party css -->
+
+
+    <link rel="stylesheet" href="/bower_components/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="/bower_components/Trip.js/dist/trip.min.css">
+    <link rel="stylesheet" href="/bower_components/flag-icon-css/css/flag-icon.css" >
+    <link rel="stylesheet" href="/bower_components/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="/bower_components/primer-css/css/primer.css">
+    <link rel="stylesheet" href="/bower_components/primer-markdown/dist/user-content.min.css">
+
+    <!-- custom css-->
+    <link rel="stylesheet" href="/assets/css/components/collection.css">
+    <link rel="stylesheet" href="/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="/assets/css/globals/common.css">
+    <link rel="stylesheet" href="/assets/css/posts/index.css">
+    <link rel="stylesheet" href="/assets/css/pages/index.css">
+    <link rel="stylesheet" href="/assets/css/pages/hover-min.css">
+    <link rel="stylesheet" href="/assets/css/globals/prism.css">
+    <link rel="stylesheet" href="/assets/css/globals/responsive.css">
+
+
+    <!-- 3rd party scripts -->
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <script src="/bower_components/Trip.js/dist/trip.min.js"></script>
+    <script src="/bower_components/share.js/dist/js/share.min.js"></script>
+
+    <!-- custom scripts-->
+    <script src="/assets/js/index.js"></script>
+    <script src="/assets/js/geopattern.js"></script>
+    <script src="/assets/js/prism.js"></script>
+    <script src="/assets/js/lunr.min.js"></script>
+    <script src="/assets/js/search.js"></script>
+
+
+    
+
+</head>
+<body class="">
+    <header class="site-header" id="site-header-id">
+        <div class="container">
+            <h1><a href="/" title="Zale"><span class="octicon octicon-mark-github"></span> Zale</a></h1>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="/" class=" site-header-nav-item hvr-underline-from-center" target="" title="Home">Home</a>
+                
+                <a href="/categories" class=" site-header-nav-item hvr-underline-from-center" target="" title="Categories">Categories</a>
+                
+                <a href="/wiki" class=" site-header-nav-item hvr-underline-from-center" target="" title="Wiki">Wiki</a>
+                
+                <a href="/bookmark" class=" site-header-nav-item hvr-underline-from-center" target="" title="Bookmark">Bookmark</a>
+                
+                <a href="/open-source" class=" site-header-nav-item hvr-underline-from-center" target="" title="Open-source">Open-source</a>
+                
+                <a href="/about" class=" site-header-nav-item hvr-underline-from-center" target="" title="About">About</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+    <section class="collection-head collection-head-scrolled geopattern" data-pattern-id="MyBatis associa">
+    <div class="container">
+        <div class="columns">
+            <div class="column">
+                <div class="collection-title">
+                    <h1 class="collection-header">MyBatis association collection and discriminator</h1>
+                    <div class="collection-info">
+                        <span class="meta-info">
+                            
+                            
+                                <span class="octicon octicon-calendar"></span> 2016/04/17
+                            
+                        </span>
+                        
+                          <span class="meta-info">
+                            <span class="octicon octicon-file-directory"></span>
+                            <a href="/categories#mybatis" title="MyBatis">MyBatis</a>
+                          </span>
+                        
+                        
+                        <span class="meta-info">
+                            <span class="octicon octicon-tag"></span>
+                            
+                            <a href="/tags#mybatis" title="Mybatis">Mybatis</a>,
+                            
+                            <a href="/tags#java" title="Java">Java</a>
+                            
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+    <div class="columns">
+        <div class="column three-fourths" >
+            <article class="article-content markdown-body">
+                <p>Quick note about MyBatis association, collection and discriminator.</p>
+
+<h2 id="association">association</h2>
+
+<p><code class="highlighter-rouge">&lt;association&gt;</code> deals with a “has-one” type relationship. For example, in our example, an Author has an User account with username and password:</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+
+	<span class="kd">private</span> <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="n">String</span> <span class="n">userName</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="n">String</span> <span class="n">password</span><span class="o">;</span>
+
+	<span class="c1">// Getters and Setters</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Author</span> <span class="o">{</span>
+
+	<span class="kd">private</span> <span class="n">Integer</span> <span class="n">id</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="n">String</span> <span class="n">realName</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="n">String</span> <span class="n">IDCard</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="n">User</span> <span class="n">user</span><span class="o">;</span> <span class="c1">// In DB, author table has a foreign key userID refering id in user table</span>
+	
+	<span class="c1">// Getters and Setters</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>And in xml map file, we need to define result Map of `Author`:</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">"AuthorMap"</span> <span class="na">type=</span><span class="s">"Author"</span><span class="nt">&gt;</span>
+	<span class="c">&lt;!-- author.id is tableName.id which is used to be distinguished from user.id --&gt;</span>
+	<span class="nt">&lt;id</span> <span class="na">property=</span><span class="s">"id"</span> <span class="na">column=</span><span class="s">"author.id"</span><span class="nt">/&gt;</span>
+	<span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">"realName"</span> <span class="na">column=</span><span class="s">"realName"</span> <span class="nt">/&gt;</span>
+	<span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">"IDCard"</span> <span class="na">column=</span><span class="s">"IDCard"</span> <span class="nt">/&gt;</span>
+	<span class="nt">&lt;association</span> <span class="na">property=</span><span class="s">"user"</span> <span class="na">column=</span><span class="s">"userID"</span> <span class="na">javaType=</span><span class="s">"User"</span><span class="nt">&gt;</span>
+		<span class="nt">&lt;id</span> <span class="na">property=</span><span class="s">"id"</span> <span class="na">column=</span><span class="s">"user.id"</span><span class="nt">/&gt;</span>
+		<span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">"userName"</span> <span class="na">column=</span><span class="s">"userName"</span> <span class="nt">/&gt;</span>
+		<span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">"password"</span> <span class="na">column=</span><span class="s">"password"</span> <span class="nt">/&gt;</span>
+	<span class="nt">&lt;/association&gt;</span>
+<span class="nt">&lt;/resultMap&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">"selectAuthorJoin"</span> <span class="na">resultMap=</span><span class="s">"AuthorMap"</span><span class="nt">&gt;</span>
+	select * from author inner join user on user.id = author.userID
+<span class="nt">&lt;/select&gt;</span>
+</code></pre>
+</div>
+
+<p>We could also extract User information as another individual resultMap which could be re-used:</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">"AuthorMap"</span> <span class="na">type=</span><span class="s">"Author"</span><span class="nt">&gt;</span>
+	...
+	<span class="nt">&lt;association</span> <span class="na">property=</span><span class="s">"user"</span> <span class="na">column=</span><span class="s">"userID"</span> <span class="na">javaType=</span><span class="s">"User"</span> <span class="na">resultMap=</span><span class="s">"userMap"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/resultMap&gt;</span>
+<span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">"userMap"</span> <span class="na">type=</span><span class="s">"User"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;id</span> <span class="na">property=</span><span class="s">"id"</span> <span class="na">column=</span><span class="s">"id"</span><span class="nt">/&gt;</span>
+	<span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">"userName"</span> <span class="na">column=</span><span class="s">"userName"</span> <span class="nt">/&gt;</span>
+	<span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">"password"</span> <span class="na">column=</span><span class="s">"password"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/resultMap&gt;</span>
+</code></pre>
+</div>
+
+<p>To query by java:</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">userList</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="na">selectList</span><span class="o">(</span><span class="s">"selectAuthorJoin"</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<h3 id="constructor">Constructor</h3>
+
+<p>If we do not care about user id or some other property. We could use <code class="highlighter-rouge">&lt;constructor&gt;</code> to limit what we want based on constructors of object.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="nf">User</span><span class="p">(</span><span class="o">)</span> <span class="o">{}</span>
+
+<span class="kd">public</span> <span class="nf">User</span><span class="p">(</span><span class="n">String</span> <span class="n">userName</span><span class="o">,</span> <span class="n">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">this</span><span class="o">.</span><span class="na">userName</span> <span class="o">=</span> <span class="n">userName</span><span class="o">;</span>
+	<span class="k">this</span><span class="o">.</span><span class="na">password</span> <span class="o">=</span> <span class="n">password</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">"AuthorMapByConstructor"</span> <span class="na">type=</span><span class="s">"Author"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;id</span> <span class="na">property=</span><span class="s">"id"</span> <span class="na">column=</span><span class="s">"author.id"</span> <span class="nt">/&gt;</span>
+	<span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">"realName"</span> <span class="na">column=</span><span class="s">"realName"</span> <span class="nt">/&gt;</span>
+	<span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">"IDCard"</span> <span class="na">column=</span><span class="s">"IDCard"</span> <span class="nt">/&gt;</span>
+	<span class="nt">&lt;association</span> <span class="na">property=</span><span class="s">"user"</span> <span class="na">column=</span><span class="s">"userID"</span> <span class="na">javaType=</span><span class="s">"JiKeUser"</span><span class="nt">&gt;</span>
+		<span class="nt">&lt;constructor&gt;</span>
+			<span class="nt">&lt;arg</span> <span class="na">column=</span><span class="s">"userName"</span> <span class="na">javaType=</span><span class="s">"String"</span> <span class="nt">/&gt;</span>
+			<span class="nt">&lt;arg</span> <span class="na">column=</span><span class="s">"password"</span> <span class="na">javaType=</span><span class="s">"String"</span> <span class="nt">/&gt;</span>
+		<span class="nt">&lt;/constructor&gt;</span>
+	<span class="nt">&lt;/association&gt;</span>
+<span class="nt">&lt;/resultMap&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">"selectAuthorJoin"</span> <span class="na">resultMap=</span><span class="s">"AuthorMapByConstructor"</span><span class="nt">&gt;</span>
+	select * from author inner join user on user.id = author.userID
+<span class="nt">&lt;/select&gt;</span>
+</code></pre>
+</div>
+
+<h3 id="subquery">Subquery</h3>
+
+<p><strong>Subquery/Inner query/Nested query is a query within another SQL query and embedded within the WHERE clause</strong>.</p>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">author</span> <span class="k">where</span> <span class="n">userID</span> <span class="k">in</span> <span class="p">(</span><span class="k">select</span> <span class="n">id</span> <span class="k">from</span> <span class="k">user</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>So there are in fact two statements here. Let’s define each select statement and resultMap:</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">"AuthorSubMap"</span> <span class="na">type=</span><span class="s">"Author"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;id</span> <span class="na">property=</span><span class="s">"id"</span> <span class="na">column=</span><span class="s">"author.id"</span> <span class="nt">/&gt;</span>
+	<span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">"realName"</span> <span class="na">column=</span><span class="s">"realName"</span> <span class="nt">/&gt;</span>
+	<span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">"IDCard"</span> <span class="na">column=</span><span class="s">"IDCard"</span> <span class="nt">/&gt;</span>
+	<span class="nt">&lt;association</span> <span class="na">property=</span><span class="s">"user"</span> <span class="na">column=</span><span class="s">"userID"</span> <span class="na">javaType=</span><span class="s">"User"</span> <span class="na">select=</span><span class="s">"findById"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/resultMap&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">"findById"</span> <span class="na">parameterType=</span><span class="s">"int"</span> <span class="na">resultType=</span><span class="s">"User"</span><span class="nt">&gt;</span>
+	select * from user where id=#{id}
+<span class="nt">&lt;/select&gt;</span>
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">"selectAuthorSub"</span> <span class="na">resultMap=</span><span class="s">"AuthorSubMap"</span><span class="nt">&gt;</span>
+	select * from author 
+<span class="nt">&lt;/select&gt;</span>
+</code></pre>
+</div>
+
+<p>In the above settings, <code class="highlighter-rouge">&lt;association&gt;</code> will pass <code class="highlighter-rouge">userID</code> as parameter to <code class="highlighter-rouge">findById</code>.</p>
+
+<h4 id="n1-problem">N+1 problem</h4>
+
+<p>But think about we have 10 authors, so here findById will be called 10 times! So we need to call 10 + 1 statements. It’s called “N+1” problem of subquery. Many people think it’s not as good as join query.</p>
+
+<h4 id="solution">Solution</h4>
+
+<p>The solution is lazy load. <strong>Statement will be not queried until the point at which it is needed</strong>.</p>
+
+<p>Let’s firstly find differences between subquery and join query.</p>
+
+<ul>
+  <li>Join query: Query one time. But it gets all the properties of two table, so it consumes resources.</li>
+  <li>Subquery: Query N+1 times. It depends on what we want in the final result. With lazy loading, we may not need to make N times queries if not necessary.</li>
+</ul>
+
+<p>To set lazy loading in configuration file, <strong>this setting must be in front of others</strong>:</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;settings&gt;</span>
+	<span class="nt">&lt;setting</span> <span class="na">name=</span><span class="s">"lazyLoadingEnabled"</span> <span class="na">value=</span><span class="s">"true"</span><span class="nt">/&gt;</span>
+	<span class="nt">&lt;setting</span> <span class="na">name=</span><span class="s">"aggressiveLazyLoading"</span> <span class="na">value=</span><span class="s">"false"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/settings&gt;</span>
+</code></pre>
+</div>
+
+<p>To test:</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">List</span><span class="o">&lt;</span><span class="n">Author</span><span class="o">&gt;</span> <span class="n">authorList</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="na">selectList</span><span class="o">(</span><span class="s">"selectAuthorSub"</span><span class="o">);</span>
+<span class="k">for</span><span class="o">(</span><span class="n">Author</span> <span class="nl">author:</span><span class="n">authorList</span><span class="o">)</span> <span class="o">{</span>
+
+	<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">auther</span><span class="o">.</span><span class="na">getRealName</span><span class="o">());</span>
+	<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Lazyloading"</span><span class="o">);</span>
+	<span class="c1">// findById query will not be called until getUser() is invoked. It's lazy loading here.</span>
+	<span class="c1">// If we never call getUser(), so findById will also never be called</span>
+	<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">auther</span><span class="o">.</span><span class="na">getUser</span><span class="o">().</span><span class="na">getUserName</span><span class="o">());</span>
+	
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>So here with lazy loading, if we never need to call <code class="highlighter-rouge">getUser()</code>, it only queries one time which is efficient!</p>
+
+<h2 id="collection">collection</h2>
+
+<p><code class="highlighter-rouge">&lt;collection&gt;</code> element works almost identically to <code class="highlighter-rouge">&lt;association&gt;</code>. But it is used to map a set of nested results like List.</p>
+
+<p>In the following example, each User could have a list of visitors:</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+
+	<span class="kd">private</span> <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="n">String</span> <span class="n">userName</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="n">String</span> <span class="n">password</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Visitor</span><span class="o">&gt;</span> <span class="n">visitorList</span><span class="o">;</span>
+
+	<span class="c1">// Getters and Setters</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Visitor</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="n">Integer</span> <span class="n">visitID</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Date</span> <span class="n">visitDate</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">visitIP</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">User</span> <span class="n">user</span><span class="o">;</span> 
+
+    <span class="c1">// Getters and Setters</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>Then in xml map file, we use <code class="highlighter-rouge">&lt;collection&gt;</code> to indicate that list of visits.</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">"visitMap"</span> <span class="na">type=</span><span class="s">"User"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;id</span> <span class="na">property=</span><span class="s">"id"</span> <span class="na">column=</span><span class="s">"id"</span> <span class="nt">/&gt;</span>
+	<span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">"userName"</span> <span class="na">column=</span><span class="s">"userName"</span> <span class="nt">/&gt;</span>
+	<span class="c">&lt;!-- `ofType` indicates the containing type of ArrayList --&gt;</span>
+	<span class="nt">&lt;collection</span> <span class="na">property=</span><span class="s">"visitorList"</span> <span class="na">javaType=</span><span class="s">"ArrayList"</span> <span class="na">column=</span><span class="s">"visitID"</span> <span class="na">ofType=</span><span class="s">"Visitor"</span><span class="nt">&gt;</span>
+		<span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">"visitID"</span> <span class="na">column=</span><span class="s">"visitID"</span> <span class="nt">/&gt;</span>
+		<span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">"visitIP"</span> <span class="na">column=</span><span class="s">"visitIP"</span> <span class="nt">/&gt;</span>
+		<span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">"visitDate"</span> <span class="na">column=</span><span class="s">"visitDate"</span> <span class="nt">/&gt;</span>
+	<span class="nt">&lt;/collection&gt;</span>
+<span class="nt">&lt;/resultMap&gt;</span>
+
+<span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">"selectVisit"</span> <span class="na">resultMap=</span><span class="s">"visitMap"</span><span class="nt">&gt;</span>
+	select * from user inner join visitor on user.id = visit.userID
+<span class="nt">&lt;/select&gt;</span>
+</code></pre>
+</div>
+
+<p>To test:</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">List</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">userList</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="na">selectList</span><span class="o">(</span><span class="s">"selectVisit"</span><span class="o">);</span> 
+
+<span class="k">for</span><span class="o">(</span><span class="n">User</span> <span class="nl">user:</span><span class="n">userList</span><span class="o">)</span> <span class="o">{</span>
+
+	<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">user</span><span class="o">.</span><span class="na">getUserName</span><span class="o">());</span>
+
+	<span class="k">for</span><span class="o">(</span><span class="n">Visitor</span> <span class="nl">visitor:</span><span class="n">user</span><span class="o">.</span><span class="na">getVisitorList</span><span class="o">())</span> <span class="o">{</span>
+
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">visitor</span><span class="o">.</span><span class="na">getVisitDate</span><span class="o">()</span> <span class="o">+</span> <span class="n">visitor</span><span class="o">.</span><span class="na">getVisitIP</span><span class="o">());</span>
+
+	<span class="o">}</span>	
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h2 id="discriminator">discriminator</h2>
+
+<p>A single database query might return result sets of many different data types. So here <code class="highlighter-rouge">&lt;discriminator&gt;</code> is used to <strong>determine which data types or so-called resultMap to use according to a column value</strong>. It is like <code class="highlighter-rouge">switch</code> in other programming languages.</p>
+
+<p>The following resultMap will return different data types according to value of <code class="highlighter-rouge">vehicle_type</code>.</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;resultMap</span> <span class="na">id=</span><span class="s">"vehicleResult"</span> <span class="na">type=</span><span class="s">"Vehicle"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;id</span> <span class="na">property=</span><span class="s">"id"</span> <span class="na">column=</span><span class="s">"id"</span> <span class="nt">/&gt;</span>
+  ...
+  <span class="nt">&lt;discriminator</span> <span class="na">javaType=</span><span class="s">"int"</span> <span class="na">column=</span><span class="s">"vehicle_type"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;case</span> <span class="na">value=</span><span class="s">"1"</span> <span class="na">resultType=</span><span class="s">"carResult"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">"doorCount"</span> <span class="na">column=</span><span class="s">"door_count"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/case&gt;</span>
+    <span class="nt">&lt;case</span> <span class="na">value=</span><span class="s">"2"</span> <span class="na">resultType=</span><span class="s">"truckResult"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">"boxSize"</span> <span class="na">column=</span><span class="s">"box_size"</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">"extendedCab"</span> <span class="na">column=</span><span class="s">"extended_cab"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/case&gt;</span>
+    <span class="nt">&lt;case</span> <span class="na">value=</span><span class="s">"3"</span> <span class="na">resultType=</span><span class="s">"suvResult"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;result</span> <span class="na">property=</span><span class="s">"allWheelDrive"</span> <span class="na">column=</span><span class="s">"all_wheel_drive"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/case&gt;</span>
+  <span class="nt">&lt;/discriminator&gt;</span>
+<span class="nt">&lt;/resultMap&gt;</span>
+</code></pre>
+</div>
+
+<h2 id="refs">Refs</h2>
+
+<ul>
+  <li><a href="http://www.mybatis.org/mybatis-3/index.html">Mybatis doc refs</a></li>
+  <li><a href="http://jiuye.jikexueyuan.com/play?id=924&amp;class_id=36">极客学院-MyBatis 高级查询</a></li>
+</ul>
+
+            </article>
+            
+            <div class="share">
+                <div class="share-component"></div>
+            </div>
+            
+            
+            <div class="comment">
+                
+  
+      
+          <div id="disqus_thread"></div>
+          <script>
+            var disqus_config = function () {
+              this.page=this.page||{};
+              this.page.url = document.location.href.replace(document.location.host,'zale.site');
+              this.page.identifier = '/articles/2016/04/MyBatis-Advanced.html';
+              this.page.title = 'MyBatis association collection and discriminator';
+            };
+            (function() { // DON'T EDIT BELOW THIS LINE
+              var d = document, s = d.createElement('script');
+
+              s.type = 'text/javascript';
+              s.async = true;
+              var shortname = 'zale';
+
+              s.src = '//' + shortname + '.disqus.com/embed.js';
+
+              s.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(s);
+            })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+      
+    
+
+            </div>
+            
+        </div>
+        <div class="column one-fourth">
+            
+<h3>Search</h3>
+<form action="get" id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+    <button class="btn btn-default" type="submit"><span class="octicon octicon-search"></span></button>
+</form>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="/assets/css/modules/sidebar-search.css">
+
+
+            <h3>Directory</h3>
+<div id="post-directory-module">
+    <section class="post-directory">
+        <!-- Links that trigger the jumping -->
+        <!-- Added by javascript below -->
+        <dl></dl>
+    </section>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("article h2").each(function (index) {
+            $(".post-directory dl").append("<dt><a class=\"jumper\" href=#" +
+                    $(this).attr("id")
+                    + ">"
+                    + $(this).text()
+                    + "</a></dt>");
+
+            var children = $(this).nextUntil("h2", "h3");
+
+            children.each(function (index) {
+                $(".post-directory dl").append("<dd><a class=\"jumper\" href=#" +
+                        $(this).attr("id")
+                        + ">"
+                        + "&nbsp;&nbsp;- " + $(this).text()
+                        + "</a></dd>");
+            });
+        });
+
+        //排除小设备下的fixed布局
+        if ($(document).width() > parseFloat($('body').css('fontSize')) * 50) {
+
+            var fixmeTop = $('#post-directory-module').offset().top - 80;       // get initial position of the element
+            $(window).scroll(function () {                  // assign scroll event listener
+
+                var currentScroll = $(window).scrollTop(); // get current position
+
+                if (currentScroll >= fixmeTop) {           // apply position: fixed if you
+                    $('#post-directory-module').css({                      // scroll to that element or below it
+                        top: '80px',
+                        position: 'fixed',
+                    });
+                } else {                                   // apply position: static
+                    $('#post-directory-module').css({                      // if you scroll above it
+                        position: 'inherit',
+                    });
+                }
+            });
+        }
+        $('#post-directory-module a').parent().click(function ($event) {
+            $(this).find('a').click();
+        });
+    });
+
+
+</script>
+        </div>
+    </div>
+</section>
+<!-- /section.content -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+  inlineMath: [['$','$'], ['\\(','\\)']]
+  }
+});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2015
+                    <span title="Zale">Zale</span>
+                    <a href="javascript:$('body, html').animate({scrollTop: 0}, 600)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:$('body, html').animate({scrollTop: 0}, 600)" >TOP</a>
+                </li>
+            </ul>
+            <a href="https://github.com/zl810881283/zl810881283.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="/" title="Home" target="">Home</a>
+                </li>
+                
+                <li>
+                    <a href="/categories" title="Categories" target="">Categories</a>
+                </li>
+                
+                <li>
+                    <a href="/wiki" title="Wiki" target="">Wiki</a>
+                </li>
+                
+                <li>
+                    <a href="/bookmark" title="Bookmark" target="">Bookmark</a>
+                </li>
+                
+                <li>
+                    <a href="/open-source" title="Open-source" target="">Open-source</a>
+                </li>
+                
+                <li>
+                    <a href="/about" title="About" target="">About</a>
+                </li>
+                
+                <li><a href="/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+    
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-76860417-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    
+    <script src="/assets/js/hashchange.js"></script>
+    </body>
+</html>

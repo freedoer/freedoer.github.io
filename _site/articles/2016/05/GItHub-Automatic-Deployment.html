@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>GitHub 自动部署 &mdash; Zale - Zale's Blog 张乐博客 个人网站</title>
+
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="alternate" type="application/atom+xml" title="overtrue" href="/atom.xml">
+
+    <link rel="apple-touch-icon-precomposed" href="/assets/images/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/images/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/images/apple-touch-icon-114x114-precomposed.png">
+    
+    <meta property="og:title" content="GitHub 自动部署">
+      
+    <meta name="keywords" content="GitHub, NodeJs">
+    <meta name="og:keywords" content="GitHub, NodeJs">
+      
+    <meta name="description" content="本文对任何提供 Webhook 的 git 仓库都适用">
+    <meta name="og:description" content="本文对任何提供 Webhook 的 git 仓库都适用">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="//articles/2016/05/GItHub-Automatic-Deployment.html">
+    <meta property="og:site_name" content="zale.site">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2016-05-20">
+    
+
+    <!-- Favicon Icon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <!-- 3rd party css -->
+
+
+    <link rel="stylesheet" href="/bower_components/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="/bower_components/Trip.js/dist/trip.min.css">
+    <link rel="stylesheet" href="/bower_components/flag-icon-css/css/flag-icon.css" >
+    <link rel="stylesheet" href="/bower_components/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="/bower_components/primer-css/css/primer.css">
+    <link rel="stylesheet" href="/bower_components/primer-markdown/dist/user-content.min.css">
+
+    <!-- custom css-->
+    <link rel="stylesheet" href="/assets/css/components/collection.css">
+    <link rel="stylesheet" href="/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="/assets/css/globals/common.css">
+    <link rel="stylesheet" href="/assets/css/posts/index.css">
+    <link rel="stylesheet" href="/assets/css/pages/index.css">
+    <link rel="stylesheet" href="/assets/css/pages/hover-min.css">
+    <link rel="stylesheet" href="/assets/css/globals/prism.css">
+    <link rel="stylesheet" href="/assets/css/globals/responsive.css">
+
+
+    <!-- 3rd party scripts -->
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <script src="/bower_components/Trip.js/dist/trip.min.js"></script>
+    <script src="/bower_components/share.js/dist/js/share.min.js"></script>
+
+    <!-- custom scripts-->
+    <script src="/assets/js/index.js"></script>
+    <script src="/assets/js/geopattern.js"></script>
+    <script src="/assets/js/prism.js"></script>
+    <script src="/assets/js/lunr.min.js"></script>
+    <script src="/assets/js/search.js"></script>
+
+
+    
+
+</head>
+<body class="">
+    <header class="site-header" id="site-header-id">
+        <div class="container">
+            <h1><a href="/" title="Zale"><span class="octicon octicon-mark-github"></span> Zale</a></h1>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="/" class=" site-header-nav-item hvr-underline-from-center" target="" title="Home">Home</a>
+                
+                <a href="/categories" class=" site-header-nav-item hvr-underline-from-center" target="" title="Categories">Categories</a>
+                
+                <a href="/wiki" class=" site-header-nav-item hvr-underline-from-center" target="" title="Wiki">Wiki</a>
+                
+                <a href="/bookmark" class=" site-header-nav-item hvr-underline-from-center" target="" title="Bookmark">Bookmark</a>
+                
+                <a href="/open-source" class=" site-header-nav-item hvr-underline-from-center" target="" title="Open-source">Open-source</a>
+                
+                <a href="/about" class=" site-header-nav-item hvr-underline-from-center" target="" title="About">About</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+    <section class="collection-head collection-head-scrolled geopattern" data-pattern-id="GitHub 自动部署">
+    <div class="container">
+        <div class="columns">
+            <div class="column">
+                <div class="collection-title">
+                    <h1 class="collection-header">GitHub 自动部署</h1>
+                    <div class="collection-info">
+                        <span class="meta-info">
+                            
+                            
+                                <span class="octicon octicon-calendar"></span> 2016/05/20
+                            
+                        </span>
+                        
+                          <span class="meta-info">
+                            <span class="octicon octicon-file-directory"></span>
+                            <a href="/categories#github" title="GitHub">GitHub</a>
+                          </span>
+                        
+                        
+                        <span class="meta-info">
+                            <span class="octicon octicon-tag"></span>
+                            
+                            <a href="/tags#github" title="GitHub">GitHub</a>,
+                            
+                            <a href="/tags#nodejs" title="NodeJs">NodeJs</a>
+                            
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+    <div class="columns">
+        <div class="column three-fourths" >
+            <article class="article-content markdown-body">
+                <p><strong>本文对任何提供 Webhook 的 git 仓库都适用</strong></p>
+
+<p class="picture bordered"><img src="/attachments/images/GItHub-Automatic-Deployment/github.jpg" alt="github" /></p>
+
+<h2 id="web-">Web 服务器代码</h2>
+
+<p>不废话，先上代码</p>
+
+<div class="language-javascript highlighter-rouge"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'http'</span><span class="p">)</span>
+<span class="kd">var</span> <span class="nx">createHandler</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'github-webhook-handler'</span><span class="p">)</span>
+
+<span class="c1">// 这里的 secret 保持和 GitHub 后台设置的一致</span>
+<span class="kd">var</span> <span class="nx">handler</span> <span class="o">=</span> <span class="nx">createHandler</span><span class="p">({</span> <span class="na">path</span><span class="p">:</span> <span class="s1">'/'</span><span class="p">,</span> <span class="na">secret</span><span class="p">:</span> <span class="s1">'root'</span> <span class="p">})</span>
+
+
+<span class="kd">function</span> <span class="nx">run_cmd</span><span class="p">(</span><span class="nx">cmd</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">spawn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'child_process'</span><span class="p">).</span><span class="nx">spawn</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">child</span> <span class="o">=</span> <span class="nx">spawn</span><span class="p">(</span><span class="nx">cmd</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">resp</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span>
+
+  <span class="nx">child</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'data'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">buffer</span><span class="p">)</span> <span class="p">{</span> <span class="nx">resp</span> <span class="o">+=</span> <span class="nx">buffer</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span> <span class="p">});</span>
+  <span class="nx">child</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'end'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">callback</span> <span class="p">(</span><span class="nx">resp</span><span class="p">)</span> <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">handler</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">statusCode</span> <span class="o">=</span> <span class="mi">404</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">'no such location'</span><span class="p">)</span>
+  <span class="p">})</span>
+<span class="p">}).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">7777</span><span class="p">)</span>
+
+<span class="nx">handler</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'error'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">'Error:'</span><span class="p">,</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">)</span>
+<span class="p">})</span>
+
+<span class="nx">handler</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'push'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Received a push event for %s to %s'</span><span class="p">,</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">payload</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span>
+    <span class="nx">event</span><span class="p">.</span><span class="nx">payload</span><span class="p">.</span><span class="nx">ref</span><span class="p">);</span>
+    <span class="nx">run_cmd</span><span class="p">(</span><span class="s1">'sh'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'./deploy.sh'</span><span class="p">,</span><span class="nx">event</span><span class="p">.</span><span class="nx">payload</span><span class="p">.</span><span class="nx">repository</span><span class="p">.</span><span class="nx">name</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">text</span><span class="p">){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">text</span><span class="p">)</span> <span class="p">});</span>
+<span class="p">})</span>
+</code></pre>
+</div>
+
+<h2 id="section">自动部署脚本</h2>
+
+<p>deploy.sh脚本负责进入项目的目录，然后利用git命令拉取最新的代码，还是直接贴代码:</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code> <span class="c">#!/bin/bash</span>
+
+<span class="nv">WEB_PATH</span><span class="o">=</span><span class="s1">'/root/tools/'</span><span class="nv">$1</span>
+<span class="nv">WEB_USER</span><span class="o">=</span><span class="s1">'root'</span>
+<span class="nv">WEB_USERGROUP</span><span class="o">=</span><span class="s1">'root'</span>
+
+<span class="nb">echo</span> <span class="s2">"Start deployment"</span>
+<span class="nb">cd</span> <span class="nv">$WEB_PATH</span>
+<span class="nb">echo</span> <span class="s2">"pulling source code..."</span>
+git reset --hard origin/master
+git clean -f
+git pull
+git checkout master
+<span class="nb">echo</span> <span class="s2">"changing permissions..."</span>
+chown -R <span class="nv">$WEB_USER</span>:<span class="nv">$WEB_USERGROUP</span> <span class="nv">$WEB_PATH</span>
+<span class="nb">echo</span> <span class="s2">"Finished."</span>
+</code></pre>
+</div>
+
+<p>deploy.sh 会接受第一个参数当做项目名字，然后进入这个项目的目录执行git操作，这个参数是在deploy.js中根据hook返回的项目名字来的，代码应该比较容易懂，都是些简单的git命令。</p>
+
+<p>如果是全新的项目，需要在你的服务器上先clone要部署的项目，然后修改WEB_PATH的值。</p>
+
+<h2 id="deployjs">后台运行deploy.js</h2>
+
+<p>利用Linux提供的nohup命令，让deploy.js运行在后台</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>nohup node deploy.js &gt; deploy.log &amp;
+</code></pre>
+</div>
+
+<h2 id="githubwebhook">Github添加webhook</h2>
+
+<p>进入你需要自动部署的项目的 GitHub 地址，进入项目的设置页面，点击左侧的 <code class="highlighter-rouge">Webhooks &amp; services</code></p>
+
+<p class="picture bordered"><img src="/attachments/images/GItHub-Automatic-Deployment/webhook.jpg" alt="webhook" /></p>
+
+<p>ok,It’s all!easy?</p>
+
+<style type="text/css">
+    .picture{
+        text-align: center;
+    }
+    .picture.bordered img{
+
+        box-shadow: 0 2px 10px 2px rgba(0,0,0,.2);
+    }
+</style>
+
+
+            </article>
+            
+            <div class="share">
+                <div class="share-component"></div>
+            </div>
+            
+            
+            <div class="comment">
+                
+  
+      
+          <div id="disqus_thread"></div>
+          <script>
+            var disqus_config = function () {
+              this.page=this.page||{};
+              this.page.url = document.location.href.replace(document.location.host,'zale.site');
+              this.page.identifier = '/articles/2016/05/GItHub-Automatic-Deployment.html';
+              this.page.title = 'GitHub 自动部署';
+            };
+            (function() { // DON'T EDIT BELOW THIS LINE
+              var d = document, s = d.createElement('script');
+
+              s.type = 'text/javascript';
+              s.async = true;
+              var shortname = 'zale';
+
+              s.src = '//' + shortname + '.disqus.com/embed.js';
+
+              s.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(s);
+            })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+      
+    
+
+            </div>
+            
+        </div>
+        <div class="column one-fourth">
+            
+<h3>Search</h3>
+<form action="get" id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+    <button class="btn btn-default" type="submit"><span class="octicon octicon-search"></span></button>
+</form>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="/assets/css/modules/sidebar-search.css">
+
+
+            <h3>Directory</h3>
+<div id="post-directory-module">
+    <section class="post-directory">
+        <!-- Links that trigger the jumping -->
+        <!-- Added by javascript below -->
+        <dl></dl>
+    </section>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("article h2").each(function (index) {
+            $(".post-directory dl").append("<dt><a class=\"jumper\" href=#" +
+                    $(this).attr("id")
+                    + ">"
+                    + $(this).text()
+                    + "</a></dt>");
+
+            var children = $(this).nextUntil("h2", "h3");
+
+            children.each(function (index) {
+                $(".post-directory dl").append("<dd><a class=\"jumper\" href=#" +
+                        $(this).attr("id")
+                        + ">"
+                        + "&nbsp;&nbsp;- " + $(this).text()
+                        + "</a></dd>");
+            });
+        });
+
+        //排除小设备下的fixed布局
+        if ($(document).width() > parseFloat($('body').css('fontSize')) * 50) {
+
+            var fixmeTop = $('#post-directory-module').offset().top - 80;       // get initial position of the element
+            $(window).scroll(function () {                  // assign scroll event listener
+
+                var currentScroll = $(window).scrollTop(); // get current position
+
+                if (currentScroll >= fixmeTop) {           // apply position: fixed if you
+                    $('#post-directory-module').css({                      // scroll to that element or below it
+                        top: '80px',
+                        position: 'fixed',
+                    });
+                } else {                                   // apply position: static
+                    $('#post-directory-module').css({                      // if you scroll above it
+                        position: 'inherit',
+                    });
+                }
+            });
+        }
+        $('#post-directory-module a').parent().click(function ($event) {
+            $(this).find('a').click();
+        });
+    });
+
+
+</script>
+        </div>
+    </div>
+</section>
+<!-- /section.content -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+  inlineMath: [['$','$'], ['\\(','\\)']]
+  }
+});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2015
+                    <span title="Zale">Zale</span>
+                    <a href="javascript:$('body, html').animate({scrollTop: 0}, 600)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:$('body, html').animate({scrollTop: 0}, 600)" >TOP</a>
+                </li>
+            </ul>
+            <a href="https://github.com/zl810881283/zl810881283.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="/" title="Home" target="">Home</a>
+                </li>
+                
+                <li>
+                    <a href="/categories" title="Categories" target="">Categories</a>
+                </li>
+                
+                <li>
+                    <a href="/wiki" title="Wiki" target="">Wiki</a>
+                </li>
+                
+                <li>
+                    <a href="/bookmark" title="Bookmark" target="">Bookmark</a>
+                </li>
+                
+                <li>
+                    <a href="/open-source" title="Open-source" target="">Open-source</a>
+                </li>
+                
+                <li>
+                    <a href="/about" title="About" target="">About</a>
+                </li>
+                
+                <li><a href="/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+    
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-76860417-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    
+    <script src="/assets/js/hashchange.js"></script>
+    </body>
+</html>

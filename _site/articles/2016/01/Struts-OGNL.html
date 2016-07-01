@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Struts OGNL &mdash; Zale - Zale's Blog 张乐博客 个人网站</title>
+
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="alternate" type="application/atom+xml" title="overtrue" href="/atom.xml">
+
+    <link rel="apple-touch-icon-precomposed" href="/assets/images/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/images/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/images/apple-touch-icon-114x114-precomposed.png">
+    
+    <meta property="og:title" content="Struts OGNL">
+      
+    <meta name="keywords" content="Zale, 张乐, blog, 博客, ZhangLe, 个人网站">
+    <meta name="og:keywords" content="Zale, 张乐, blog, 博客, ZhangLe, 个人网站">
+      
+    <meta name="description" content="OGNL stands for Object Graph Navigation Language.">
+    <meta name="og:description" content="OGNL stands for Object Graph Navigation Language.">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="//articles/2016/01/Struts-OGNL.html">
+    <meta property="og:site_name" content="zale.site">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2016-01-25">
+    
+
+    <!-- Favicon Icon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <!-- 3rd party css -->
+
+
+    <link rel="stylesheet" href="/bower_components/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="/bower_components/Trip.js/dist/trip.min.css">
+    <link rel="stylesheet" href="/bower_components/flag-icon-css/css/flag-icon.css" >
+    <link rel="stylesheet" href="/bower_components/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="/bower_components/primer-css/css/primer.css">
+    <link rel="stylesheet" href="/bower_components/primer-markdown/dist/user-content.min.css">
+
+    <!-- custom css-->
+    <link rel="stylesheet" href="/assets/css/components/collection.css">
+    <link rel="stylesheet" href="/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="/assets/css/globals/common.css">
+    <link rel="stylesheet" href="/assets/css/posts/index.css">
+    <link rel="stylesheet" href="/assets/css/pages/index.css">
+    <link rel="stylesheet" href="/assets/css/pages/hover-min.css">
+    <link rel="stylesheet" href="/assets/css/globals/prism.css">
+    <link rel="stylesheet" href="/assets/css/globals/responsive.css">
+
+
+    <!-- 3rd party scripts -->
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <script src="/bower_components/Trip.js/dist/trip.min.js"></script>
+    <script src="/bower_components/share.js/dist/js/share.min.js"></script>
+
+    <!-- custom scripts-->
+    <script src="/assets/js/index.js"></script>
+    <script src="/assets/js/geopattern.js"></script>
+    <script src="/assets/js/prism.js"></script>
+    <script src="/assets/js/lunr.min.js"></script>
+    <script src="/assets/js/search.js"></script>
+
+
+    
+
+</head>
+<body class="">
+    <header class="site-header" id="site-header-id">
+        <div class="container">
+            <h1><a href="/" title="Zale"><span class="octicon octicon-mark-github"></span> Zale</a></h1>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="/" class=" site-header-nav-item hvr-underline-from-center" target="" title="Home">Home</a>
+                
+                <a href="/categories" class=" site-header-nav-item hvr-underline-from-center" target="" title="Categories">Categories</a>
+                
+                <a href="/wiki" class=" site-header-nav-item hvr-underline-from-center" target="" title="Wiki">Wiki</a>
+                
+                <a href="/bookmark" class=" site-header-nav-item hvr-underline-from-center" target="" title="Bookmark">Bookmark</a>
+                
+                <a href="/open-source" class=" site-header-nav-item hvr-underline-from-center" target="" title="Open-source">Open-source</a>
+                
+                <a href="/about" class=" site-header-nav-item hvr-underline-from-center" target="" title="About">About</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+    <section class="collection-head collection-head-scrolled geopattern" data-pattern-id="Struts OGNL">
+    <div class="container">
+        <div class="columns">
+            <div class="column">
+                <div class="collection-title">
+                    <h1 class="collection-header">Struts OGNL</h1>
+                    <div class="collection-info">
+                        <span class="meta-info">
+                            
+                            
+                                <span class="octicon octicon-calendar"></span> 2016/01/25
+                            
+                        </span>
+                        
+                          <span class="meta-info">
+                            <span class="octicon octicon-file-directory"></span>
+                            <a href="/categories#struts" title="Struts">Struts</a>
+                          </span>
+                        
+                        
+                        <span class="meta-info">
+                            <span class="octicon octicon-tag"></span>
+                            
+                            <a href="/tags#struts" title="Struts">Struts</a>
+                            
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+    <div class="columns">
+        <div class="column three-fourths" >
+            <article class="article-content markdown-body">
+                <p>OGNL stands for <a href="http://commons.apache.org/proper/commons-ognl/">Object Graph Navigation Language</a>.</p>
+
+<p>It’s an expression language for getting/setting properties of Java objects and other extra functions. It works as a binding between GUI elements or UI components to model objects.</p>
+
+<p>This post is a summary after studying <a href="https://struts.apache.org/docs/generic-tag-reference.html">Apache Struts 2 Documentation - ONGL</a>.</p>
+
+<h2 id="import-tag-lib">Import tag lib</h2>
+
+<p>Before using ONGL, we need to import it in JSP page:</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">&lt;%</span><span class="err">@</span> <span class="n">taglib</span> <span class="n">prefix</span><span class="o">=</span><span class="s">"s"</span> <span class="n">uri</span><span class="o">=</span><span class="s">"/struts-tags"</span> <span class="o">%&gt;</span>
+</code></pre>
+</div>
+
+<h2 id="control-tags">Control Tags</h2>
+
+<ul>
+  <li>if/elseif/else</li>
+  <li>iterator</li>
+  <li>append</li>
+  <li>merge</li>
+  <li>generator</li>
+  <li>subset</li>
+  <li>sort</li>
+</ul>
+
+<h3 id="ifelseifelse">if/elseif/else</h3>
+
+<p><code class="highlighter-rouge">if</code> and <code class="highlighter-rouge">elseif</code> must have <code class="highlighter-rouge">test</code> attribute in which should be a boolean expression.</p>
+
+<pre><code class="language-JSP">// Set a parameter called 'age' with value 30
+&lt;s:set name="age" value="30"/&gt;
+&lt;s:if test="#age&gt;60"&gt;    
+	old  
+&lt;/s:if&gt;    
+&lt;s:elseif test="#age&gt;35"&gt;    
+    adult   
+&lt;/s:elseif&gt;    
+&lt;s:else&gt;    
+    young  
+&lt;/s:else&gt;
+</code></pre>
+
+<h3 id="iterator">iterator</h3>
+
+<p>Tag to <strong>iterate a collection</strong> (List, set, array or map). It has three attributes:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Required</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>begin</td>
+      <td>X</td>
+      <td>0</td>
+      <td>Index to start iteration</td>
+    </tr>
+    <tr>
+      <td>end</td>
+      <td>X</td>
+      <td>size of collection</td>
+      <td>Index to end iteration</td>
+    </tr>
+    <tr>
+      <td><strong>status</strong></td>
+      <td>X</td>
+      <td> </td>
+      <td>Instance of IteratorStatus which will be pushed into stack upon each iteration</td>
+    </tr>
+    <tr>
+      <td>step</td>
+      <td>X</td>
+      <td>1</td>
+      <td>Iteration index will be increased by this value on each iteration</td>
+    </tr>
+    <tr>
+      <td><strong>value</strong></td>
+      <td>X</td>
+      <td> </td>
+      <td>Collection to iterate</td>
+    </tr>
+    <tr>
+      <td>var</td>
+      <td>X</td>
+      <td> </td>
+      <td>Name used to reference the value pushed into the Value Stack</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Instance of IteratorStatus also has following functions:</p>
+
+<p>if <code class="highlighter-rouge">status="test"</code>,</p>
+
+<ul>
+  <li><code class="highlighter-rouge">#test.count</code> returns number of element already iterated. (equals to <code class="highlighter-rouge">int getCount()</code>)</li>
+  <li><code class="highlighter-rouge">#test.index</code> returns index of current element. (equals to <code class="highlighter-rouge">int getIndex()</code>)</li>
+  <li><code class="highlighter-rouge">#test.even</code> returns wether current element is even. (equals to <code class="highlighter-rouge">boolean isEven()</code>)</li>
+  <li><code class="highlighter-rouge">#test.odd</code> returns wether current element is odd. (equals to <code class="highlighter-rouge">boolean isOdd()</code>)</li>
+  <li><code class="highlighter-rouge">#test.first</code> returns wether current element is the first one. (equals to <code class="highlighter-rouge">boolean isFirst()</code>)</li>
+  <li><code class="highlighter-rouge">#test.last</code> returns  wether current element is the last one. (equals to <code class="highlighter-rouge">boolean isLast()</code>)</li>
+</ul>
+
+<p>If now we have a list called employeeList which is <code class="highlighter-rouge">List&lt;Employee&gt;</code>. Employee has two attributes <code class="highlighter-rouge">name</code> and <code class="highlighter-rouge">age</code> with <strong>getter/setter</strong>:</p>
+
+<pre><code class="language-JSP">&lt;table&gt;
+	&lt;s:iterator value="employeeList" status="list"&gt;
+		&lt;tr&gt;
+			&lt;td&gt;&lt;s:property value="#list.index" /&gt;&lt;/td&gt;
+			&lt;td&gt;&lt;s:property value="name" /&gt;&lt;/td&gt;
+			&lt;td&gt;&lt;s:property value="age" /&gt;&lt;/td&gt;
+		&lt;/tr&gt;   
+	&lt;/s:iterator&gt;  
+&lt;/table&gt;
+</code></pre>
+
+<p>If it’s <strong>List&lt;String&gt;</strong>, use <code class="highlighter-rouge">s:property</code> without <code class="highlighter-rouge">value</code> to present a string element in the list:</p>
+
+<pre><code class="language-JSP">&lt;table&gt;
+	&lt;s:iterator value="numberList" status="list2"&gt;
+		&lt;tr&gt;
+			&lt;td&gt;&lt;s:property value="#list2.index" /&gt;&lt;/td&gt;
+			&lt;td&gt;&lt;s:property/&gt;&lt;/td&gt;
+		&lt;/tr&gt;   
+	&lt;/s:iterator&gt;  
+&lt;/table&gt;
+</code></pre>
+
+<p>If it’s <strong>Map</strong>:</p>
+
+<pre><code class="language-JSP">&lt;table&gt;
+	&lt;s:iterator value="keyValueMap" status="map"&gt;
+		&lt;tr&gt;
+			&lt;td&gt;&lt;s:property value="#map.index" /&gt;&lt;/td&gt;
+			&lt;td&gt;&lt;s:property value="key" /&gt;&lt;/td&gt;
+			&lt;td&gt;&lt;s:property value="value" /&gt;&lt;/td&gt;   
+		&lt;/tr&gt;   
+	&lt;/s:iterator&gt;  
+&lt;/table&gt;
+</code></pre>
+
+<h3 id="append">append</h3>
+
+<p>It <strong>appends several collections to form a new collection</strong>.</p>
+
+<p>The new collection has the following order (different from tag `merge):</p>
+
+<ol>
+  <li>First Entry of the First Iterator</li>
+  <li>Second Entry of the First Iterator</li>
+  <li>Third Entry of the First Iterator</li>
+  <li>First Entry of the Second Iterator</li>
+  <li>Second Entry of the Second Iterator</li>
+  <li>Third Entry of the Second Iterator</li>
+</ol>
+
+<p>The following example shows three lists of type <code class="highlighter-rouge">List&lt;String&gt;</code> to be appended together. These three lists are passed by some Action.</p>
+
+<pre><code class="language-JSP">&lt;s:append var="newList"&gt;
+     &lt;s:param value="list1" /&gt;
+     &lt;s:param value="list2" /&gt;
+     &lt;s:param value="list3" /&gt;
+&lt;/s:append&gt;
+&lt;s:iterator value="#newList"&gt;
+     &lt;s:property /&gt;
+&lt;/s:iterator&gt;
+</code></pre>
+
+<h3 id="merge">merge</h3>
+
+<p>The same as <code class="highlighter-rouge">append</code> but in different order:</p>
+
+<ol>
+  <li>First Entry of the First Iterator</li>
+  <li>First Entry of the Second Iterator</li>
+  <li>Second Entry of the First Iterator</li>
+  <li>Second Entry of the Second Iterator</li>
+  <li>Third Entry of the First Iterator</li>
+  <li>Third Entry of the Second Iterator</li>
+</ol>
+
+<h3 id="generator">generator</h3>
+
+<p><strong>Generate an iterator based on give string</strong>. If <code class="highlighter-rouge">var</code> not set, it will only exist in Value Stack which means you can not use it outside the tag. (Not in page context)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Required</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>separator</strong></td>
+      <td>O</td>
+      <td> </td>
+      <td>The separator to be used in separating the val into entries of the iterator</td>
+    </tr>
+    <tr>
+      <td><strong>val</strong></td>
+      <td>O</td>
+      <td> </td>
+      <td>The source to be parsed into an iterator</td>
+    </tr>
+    <tr>
+      <td>var</td>
+      <td>X</td>
+      <td> </td>
+      <td>The name to store the resultant iterator into page context</td>
+    </tr>
+    <tr>
+      <td>count</td>
+      <td>X</td>
+      <td> </td>
+      <td>Max number of entries to be in the iterator</td>
+    </tr>
+    <tr>
+      <td>converter</td>
+      <td>X</td>
+      <td> </td>
+      <td>Convert the String entry parsed from val into an object</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A string separated by “,”:</p>
+
+<pre><code class="language-JSP">&lt;s:generator val="%{'aaa,bbb,ccc,ddd,eee'}" count="3" separator=","&gt;
+	&lt;s:iterator&gt;
+    	&lt;s:property /&gt;
+	&lt;/s:iterator&gt;
+&lt;/s:generator&gt;
+</code></pre>
+
+<p>Generate an iterator with comparator attribute:</p>
+
+<pre><code class="language-JSP">&lt;s:generator val="%{'aaa,bbb,ccc,ddd,eee'}" separator="," converter="myConverter"&gt;
+	&lt;s:iterator&gt;
+     return&lt;s:property /&gt;&lt;br/&gt;
+	&lt;/s:iterator&gt;
+&lt;/s:generator&gt;
+``` 
+
+```java
+public class GeneratorTagAction extends ActionSupport {
+    ...
+    // getMyConverter function name -&gt; converter="myConverter"
+    public Converter getMyConverter() {
+        return new Converter() {
+            public Object convert(String value) throws Exception {
+                return "converter-"+value;
+            }
+        };
+    }
+    ...
+}
+</code></pre>
+
+<p>This will generate an iterator with each entries decided by the converter supplied. With
+this converter, it simply add “converter-“ to each entries.</p>
+
+<h3 id="subset">subset</h3>
+
+<p><strong>Outputs a subset of an iterator.</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Required</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>count</td>
+      <td>X</td>
+      <td> </td>
+      <td>Indicate the number of entries to be in the resulting subset iterator</td>
+    </tr>
+    <tr>
+      <td>decider</td>
+      <td>X</td>
+      <td> </td>
+      <td>Extension to plug-in a decider to determine if that particular entry is to be included in the resulting subset iterator</td>
+    </tr>
+    <tr>
+      <td>var</td>
+      <td>X</td>
+      <td> </td>
+      <td>The name to store the resultant iterator into page context</td>
+    </tr>
+    <tr>
+      <td>source</td>
+      <td>X</td>
+      <td> </td>
+      <td>Source to do subset</td>
+    </tr>
+    <tr>
+      <td>start</td>
+      <td>X</td>
+      <td>0</td>
+      <td>Indicate the startig index</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Simply subset:</p>
+
+<pre><code class="language-JSP">&lt;!-- myList is a List&lt;String&gt; given by action --&gt;
+&lt;s:subset source="myList"&gt;
+    &lt;s:iterator&gt;
+		&lt;s:property /&gt;
+    &lt;/s:iterator&gt;
+&lt;/s:subset&gt;
+</code></pre>
+
+<p>With decider:</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MySubsetTagAction</span> <span class="kd">extends</span> <span class="n">ActionSupport</span> <span class="o">{</span>
+	
+	<span class="o">...</span>
+    <span class="kd">public</span> <span class="n">Decider</span> <span class="n">getMyDecider</span><span class="o">()</span> <span class="o">{</span>
+    	<span class="k">return</span> <span class="k">new</span> <span class="n">Decider</span><span class="o">()</span> <span class="o">{</span>
+        	<span class="kd">public</span> <span class="kt">boolean</span> <span class="n">decide</span><span class="o">(</span><span class="n">Object</span> <span class="n">element</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+            	<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="o">((</span><span class="n">Integer</span><span class="o">)</span><span class="n">element</span><span class="o">).</span><span class="na">intValue</span><span class="o">();</span>
+            	<span class="k">return</span> <span class="o">(((</span><span class="n">i</span> <span class="o">%</span> <span class="mi">2</span><span class="o">)</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)?</span><span class="kc">true</span><span class="o">:</span><span class="kc">false</span><span class="o">);</span>
+         	<span class="o">}</span>
+    	<span class="o">};</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<pre><code class="language-JSP">&lt;!-- myList is a List&lt;String&gt; given by action --&gt;
+&lt;s:subset source="myList" decider="myDecider"&gt;
+    &lt;s:iterator&gt;
+ 		&lt;s:property /&gt;
+    &lt;/s:iterator&gt;
+&lt;/s:subset&gt;
+</code></pre>
+
+<h3 id="sort">Sort</h3>
+
+<p>It <strong>sorts a List using a Comparator</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Required</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>comparator</td>
+      <td>O</td>
+      <td> </td>
+      <td>The comparator to use (java.util.Comparator)</td>
+    </tr>
+    <tr>
+      <td>var</td>
+      <td>X</td>
+      <td> </td>
+      <td>The name to store the resultant iterator into page context</td>
+    </tr>
+    <tr>
+      <td>source</td>
+      <td>X</td>
+      <td> </td>
+      <td>Source to sort</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="example">Example</h4>
+
+<p>Sort by string length:</p>
+
+<pre><code class="language-JSP">&lt;s:set name="test" value="{'aefi','abc','world!','kkkkk'}" /&gt;
+&lt;s:bean id="sort" name="action.SortComparator"&gt;&lt;/s:bean&gt;
+&lt;s:sort source="test" comparator="sort"&gt;
+    &lt;s:iterator&gt;
+        &lt;s:property /&gt;
+    &lt;/s:iterator&gt;
+&lt;/s:sort&gt;
+</code></pre>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SortComparator</span> <span class="kd">implements</span> <span class="n">Comparator</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="n">compare</span><span class="o">(</span><span class="n">Object</span> <span class="n">arg0</span><span class="o">,</span> <span class="n">Object</span> <span class="n">arg1</span><span class="o">)</span> <span class="o">{</span>
+    	<span class="c1">// Compare by length</span>
+        <span class="k">return</span> <span class="n">arg0</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">length</span><span class="o">()</span> <span class="o">-</span> <span class="n">arg1</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">length</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h2 id="data-tags">Data Tags</h2>
+
+<h3 id="action">action</h3>
+
+<p>It could call actions directly from a JSP page by specifying the action name and an optional namespace.</p>
+
+<blockquote>
+  <p>Any result processor defined for this action in struts.xml will be ignored, unless the executeResult parameter is specified.</p>
+</blockquote>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Required</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>executeResult</strong></td>
+      <td>x</td>
+      <td>false</td>
+      <td>Whether the result of this action (probably a view) should be executed/rendered</td>
+    </tr>
+    <tr>
+      <td>var</td>
+      <td>X</td>
+      <td> </td>
+      <td>Name used to reference the value pushed into the Value Stack</td>
+    </tr>
+    <tr>
+      <td>name</td>
+      <td>O</td>
+      <td> </td>
+      <td>Name of the action to be executed (without the extension suffix eg. .action)</td>
+    </tr>
+    <tr>
+      <td>namespace</td>
+      <td>X</td>
+      <td>Namespace from where tag is used</td>
+      <td>Namespace of the action</td>
+    </tr>
+    <tr>
+      <td>ignoreContextParams</td>
+      <td>X</td>
+      <td>false</td>
+      <td>Whether the request parameters are to be passed to the action</td>
+    </tr>
+    <tr>
+      <td>rethrowException</td>
+      <td>X</td>
+      <td>false</td>
+      <td>Whether an exception should be rethrown, if the target action throws an exception</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="example-1">Example</h4>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ActionTagAction</span> <span class="kd">extends</span> <span class="n">ActionSupport</span> <span class="o">{</span>
+ 
+	<span class="kd">public</span> <span class="n">String</span> <span class="n">execute</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+     	<span class="k">return</span> <span class="n">SUCCESS</span><span class="o">;</span>
+ 	<span class="o">}</span>
+ 
+ 	<span class="kd">public</span> <span class="n">String</span> <span class="n">test</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    	<span class="n">ServletActionContext</span><span class="o">.</span><span class="na">getRequest</span><span class="o">().</span><span class="na">setAttribute</span><span class="o">(</span><span class="s">"variable"</span><span class="o">,</span> <span class="s">"A variable"</span><span class="o">);</span>
+     	<span class="k">return</span> <span class="n">SUCCESS</span><span class="o">;</span>
+ 	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;action</span> <span class="na">name=</span><span class="s">"actionA"</span> <span class="na">class=</span><span class="s">"com.dong.test"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;result</span> <span class="na">name=</span><span class="s">"success"</span><span class="nt">&gt;</span>test.jsp<span class="nt">&lt;/result&gt;</span>
+<span class="nt">&lt;/action&gt;</span>
+<span class="nt">&lt;action</span> <span class="na">name=</span><span class="s">"actionB"</span> <span class="na">class=</span><span class="s">"com.dong.test"</span> <span class="na">method=</span><span class="s">"test"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;result</span> <span class="na">name=</span><span class="s">"success"</span><span class="nt">&gt;</span>test.jsp<span class="nt">&lt;/result&gt;</span>
+<span class="nt">&lt;/action&gt;</span>
+</code></pre>
+</div>
+
+<p>When we acess the test page with a request parameter - <code class="highlighter-rouge">localhost:8000/index?author=Dong</code>:</p>
+
+<pre><code class="language-JSP">&lt;!-- success.jsp will be included in this page --&gt;
+&lt;!-- And show "test - Dong"--&gt;
+&lt;s:action name="actionA" executeResult="true" /&gt;
+
+&lt;!-- test.jsp will be included in this page--&gt;
+&lt;!-- No request parameter is allowed, so could only show "test -"--&gt;
+&lt;s:action name="actionB" executeResult="true" ignoreContextParams="true" /&gt;
+
+&lt;!-- test.jsp will NOT be included in this page--&gt;
+&lt;!-- But put a String in request scope under an id "variable" which will be retrieved using property tag --&gt;
+&lt;s:action name="actionB" executeResult="false" /&gt;
+&lt;s:property value="#attr.variable" /&gt;&lt;!-- #attr is to access to PageContext if available , we use value="variable" directly --&gt;
+</code></pre>
+
+<h2 id="ref">Ref</h2>
+<ul>
+  <li><a href="https://struts.apache.org/docs/generic-tag-reference.html">Tag reference</a></li>
+</ul>
+
+            </article>
+            
+            <div class="share">
+                <div class="share-component"></div>
+            </div>
+            
+            
+            <div class="comment">
+                
+  
+      
+          <div id="disqus_thread"></div>
+          <script>
+            var disqus_config = function () {
+              this.page=this.page||{};
+              this.page.url = document.location.href.replace(document.location.host,'zale.site');
+              this.page.identifier = '/articles/2016/01/Struts-OGNL.html';
+              this.page.title = 'Struts OGNL';
+            };
+            (function() { // DON'T EDIT BELOW THIS LINE
+              var d = document, s = d.createElement('script');
+
+              s.type = 'text/javascript';
+              s.async = true;
+              var shortname = 'zale';
+
+              s.src = '//' + shortname + '.disqus.com/embed.js';
+
+              s.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(s);
+            })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+      
+    
+
+            </div>
+            
+        </div>
+        <div class="column one-fourth">
+            
+<h3>Search</h3>
+<form action="get" id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+    <button class="btn btn-default" type="submit"><span class="octicon octicon-search"></span></button>
+</form>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="/assets/css/modules/sidebar-search.css">
+
+
+            <h3>Directory</h3>
+<div id="post-directory-module">
+    <section class="post-directory">
+        <!-- Links that trigger the jumping -->
+        <!-- Added by javascript below -->
+        <dl></dl>
+    </section>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("article h2").each(function (index) {
+            $(".post-directory dl").append("<dt><a class=\"jumper\" href=#" +
+                    $(this).attr("id")
+                    + ">"
+                    + $(this).text()
+                    + "</a></dt>");
+
+            var children = $(this).nextUntil("h2", "h3");
+
+            children.each(function (index) {
+                $(".post-directory dl").append("<dd><a class=\"jumper\" href=#" +
+                        $(this).attr("id")
+                        + ">"
+                        + "&nbsp;&nbsp;- " + $(this).text()
+                        + "</a></dd>");
+            });
+        });
+
+        //排除小设备下的fixed布局
+        if ($(document).width() > parseFloat($('body').css('fontSize')) * 50) {
+
+            var fixmeTop = $('#post-directory-module').offset().top - 80;       // get initial position of the element
+            $(window).scroll(function () {                  // assign scroll event listener
+
+                var currentScroll = $(window).scrollTop(); // get current position
+
+                if (currentScroll >= fixmeTop) {           // apply position: fixed if you
+                    $('#post-directory-module').css({                      // scroll to that element or below it
+                        top: '80px',
+                        position: 'fixed',
+                    });
+                } else {                                   // apply position: static
+                    $('#post-directory-module').css({                      // if you scroll above it
+                        position: 'inherit',
+                    });
+                }
+            });
+        }
+        $('#post-directory-module a').parent().click(function ($event) {
+            $(this).find('a').click();
+        });
+    });
+
+
+</script>
+        </div>
+    </div>
+</section>
+<!-- /section.content -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+  inlineMath: [['$','$'], ['\\(','\\)']]
+  }
+});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2015
+                    <span title="Zale">Zale</span>
+                    <a href="javascript:$('body, html').animate({scrollTop: 0}, 600)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:$('body, html').animate({scrollTop: 0}, 600)" >TOP</a>
+                </li>
+            </ul>
+            <a href="https://github.com/zl810881283/zl810881283.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="/" title="Home" target="">Home</a>
+                </li>
+                
+                <li>
+                    <a href="/categories" title="Categories" target="">Categories</a>
+                </li>
+                
+                <li>
+                    <a href="/wiki" title="Wiki" target="">Wiki</a>
+                </li>
+                
+                <li>
+                    <a href="/bookmark" title="Bookmark" target="">Bookmark</a>
+                </li>
+                
+                <li>
+                    <a href="/open-source" title="Open-source" target="">Open-source</a>
+                </li>
+                
+                <li>
+                    <a href="/about" title="About" target="">About</a>
+                </li>
+                
+                <li><a href="/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+    
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-76860417-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    
+    <script src="/assets/js/hashchange.js"></script>
+    </body>
+</html>

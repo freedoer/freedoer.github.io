@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>使用 Pandoc Markdown 进行学术论文写作 &mdash; Zale - ZhangLe's Website</title>
+
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="alternate" type="application/atom+xml" title="overtrue" href="/atom.xml">
+
+    <link rel="apple-touch-icon-precomposed" href="/assets/images/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/images/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/images/apple-touch-icon-114x114-precomposed.png">
+    
+    <meta property="og:title" content="使用 Pandoc Markdown 进行学术论文写作">
+      
+    <meta name="keywords" content="Markdown, Pandoc, Writting">
+    <meta name="og:keywords" content="Markdown, Pandoc, Writting">
+      
+    <meta name="description" content="最近在忙于毕业论文写作。本人之前写论文直接使用 word，无奈 word 在频繁修改文档时，表格和插图很容易乱掉，并且无法解决多人协助，版本管理问题。加上有纯文本癖，我很快将目光转到 LaTeX 上。用了一段时间 LaTeX ，表格和插图不再混乱，参考文献引用也完全没有问题，对数学公式的支持几乎可以用完美来形容，版本管理和多人协作也可以通过 Git 来实现。但也发现了一些 LaTeX 在创作时的问题：">
+    <meta name="og:description" content="最近在忙于毕业论文写作。本人之前写论文直接使用 word，无奈 word 在频繁修改文档时，表格和插图很容易乱掉，并且无法解决多人协助，版本管理问题。加上有纯文本癖，我很快将目光转到 LaTeX 上。用了一段时间 LaTeX ，表格和插图不再混乱，参考文献引用也完全没有问题，对数学公式的支持几乎可以用完美来形容，版本管理和多人协作也可以通过 Git 来实现。但也发现了一些 LaTeX 在创作时的问题：">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="//articles/2016/05/Academia-Writing-Using-Markdown-and-Pandoc-(%E5%A4%8D%E4%BB%B6).html">
+    <meta property="og:site_name" content="zale.site">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2016-05-14">
+    
+
+    <!-- Favicon Icon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <!-- 3rd party css -->
+
+
+    <link rel="stylesheet" href="/bower_components/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="/bower_components/Trip.js/dist/trip.min.css">
+    <link rel="stylesheet" href="/bower_components/flag-icon-css/css/flag-icon.css" >
+    <link rel="stylesheet" href="/bower_components/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="/bower_components/primer-css/css/primer.css">
+    <link rel="stylesheet" href="/bower_components/primer-markdown/dist/user-content.min.css">
+
+    <!-- custom css-->
+    <link rel="stylesheet" href="/assets/css/components/collection.css">
+    <link rel="stylesheet" href="/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="/assets/css/globals/common.css">
+    <link rel="stylesheet" href="/assets/css/posts/index.css">
+    <link rel="stylesheet" href="/assets/css/pages/index.css">
+    <link rel="stylesheet" href="/assets/css/pages/hover-min.css">
+    <link rel="stylesheet" href="/assets/css/globals/prism.css">
+    <link rel="stylesheet" href="/assets/css/globals/responsive.css">
+
+
+    <!-- 3rd party scripts -->
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <script src="/bower_components/Trip.js/dist/trip.min.js"></script>
+    <script src="/bower_components/share.js/dist/js/share.min.js"></script>
+
+    <!-- custom scripts-->
+    <script src="/assets/js/index.js"></script>
+    <script src="/assets/js/geopattern.js"></script>
+    <script src="/assets/js/prism.js"></script>
+    <script src="/assets/js/lunr.min.js"></script>
+    <script src="/assets/js/search.js"></script>
+
+
+    
+
+</head>
+<body class="">
+    <header class="site-header" id="site-header-id">
+        <div class="container">
+            <h1><a href="/" title="Zale"><span class="octicon octicon-mark-github"></span> Zale</a></h1>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="/" class=" site-header-nav-item hvr-underline-from-center" target="" title="Home">Home</a>
+                
+                <a href="/categories" class=" site-header-nav-item hvr-underline-from-center" target="" title="Categories">Categories</a>
+                
+                <a href="/wiki" class=" site-header-nav-item hvr-underline-from-center" target="" title="Wiki">Wiki</a>
+                
+                <a href="/bookmark" class=" site-header-nav-item hvr-underline-from-center" target="" title="Bookmark">Bookmark</a>
+                
+                <a href="/open-source" class=" site-header-nav-item hvr-underline-from-center" target="" title="Open-source">Open-source</a>
+                
+                <a href="/about" class=" site-header-nav-item hvr-underline-from-center" target="" title="About">About</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+    <section class="collection-head collection-head-scrolled geopattern" data-pattern-id="使用 Pandoc Markd">
+    <div class="container">
+        <div class="columns">
+            <div class="column">
+                <div class="collection-title">
+                    <h1 class="collection-header">使用 Pandoc Markdown 进行学术论文写作</h1>
+                    <div class="collection-info">
+                        <span class="meta-info">
+                            
+                            
+                                <span class="octicon octicon-calendar"></span> 2016/05/14
+                            
+                        </span>
+                        
+                          <span class="meta-info">
+                            <span class="octicon octicon-file-directory"></span>
+                            <a href="/categories#writing" title="Writing">Writing</a>
+                          </span>
+                        
+                        
+                        <span class="meta-info">
+                            <span class="octicon octicon-tag"></span>
+                            
+                            <a href="/tags#markdown" title="Markdown">Markdown</a>,
+                            
+                            <a href="/tags#pandoc" title="Pandoc">Pandoc</a>,
+                            
+                            <a href="/tags#writting" title="Writting">Writting</a>
+                            
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+    <div class="columns">
+        <div class="column three-fourths" >
+            <article class="article-content markdown-body">
+                <p>最近在忙于毕业论文写作。本人之前写论文直接使用 word，无奈 word 在频繁修改文档时，表格和插图很容易乱掉，并且无法解决多人协助，版本管理问题。加上有纯文本癖，我很快将目光转到 <strong>LaTeX</strong> 上。用了一段时间 <strong>LaTeX</strong> ，表格和插图不再混乱，参考文献引用也完全没有问题，对数学公式的支持几乎可以用完美来形容，版本管理和多人协作也可以通过 Git 来实现。但也发现了一些 <strong>LaTeX</strong> 在创作时的问题：</p>
+
+<ul>
+  <li>
+    <p>写作时无法集中精力到内容上：
+使用 <strong>LaTeX</strong> 写作，特别当文档比较大并存在大量公式的时候，会存在一大堆的标签，文档结构不够清晰。</p>
+  </li>
+  <li>
+    <p>标签需要配对：
+虽说标签配不是很大的问题。但编译报错，返回编辑器补全标签还是挺让人懊恼，容易打断写作思路。</p>
+  </li>
+  <li>
+    <p>无法做到所见即所得：
+所见即所得是 Word 做的比较好的地方，使用 <strong>LaTeX</strong> 进行写作时候，你并不知道结果出来是什么样子的，一切只有编译以后才知道。你想修改 pdf 里看到一句话，还需要找对应 tex 文件的所在行。虽然可以使用搜索，但是毕竟还是没有所见即所得来的方便。</p>
+  </li>
+</ul>
+
+<p>于是想要寻找一个 <strong>LaTeX</strong> 的替代解决方案，并非完全要放弃 <strong>LaTeX</strong>。因为科技论文写作不可避免要有许多数学符号和公式。而且许多期刊都提供了 <strong>LaTeX</strong> 模板，因此如果这种替代方案需要让我完全放弃 <strong>LaTeX</strong>，我也会有些犹豫的。</p>
+
+<p>好在发现了 Markdown，更确切的说，是发现了 Markdown＋Pandoc 的组合。</p>
+
+<h2 id="markdown">认识 Markdown</h2>
+
+<p>Markdown 是一种用来写作的轻量级「标记语言」，它用简洁的语法代替排版，而不像一般我们用的字处理软件 Word 或 Pages 有大量的排版、字体设置。它使我们专心于码字，用「标记」语法，来代替常见的排版格式。例如此文从内容到格式，甚至插图，键盘就可以通通搞定了。</p>
+
+<h3 id="markdown-">Markdown 的优点</h3>
+
+<ul>
+  <li>专注你的文字内容而不是排版样式。</li>
+  <li>利用 Pandoc 可以轻松转换成 doc、pdf、tex。</li>
+  <li>纯文本内容，兼容所有的文本编辑器与字处理软件。</li>
+  <li>可读，直观。适合所有人的写作语言。</li>
+</ul>
+
+<h3 id="section">简要语法规则</h3>
+
+<h4 id="section-1">标题</h4>
+<p>标题是每篇文章都需要也是最常用的格式，在 Markdown 中，如果一段文字被定义为标题，只要在这段文字前加 <code class="highlighter-rouge">#</code> 号即可。</p>
+
+<p class="picture"><img src="/attachments/images/Academia-Writing-with-Markdown-Using-Pandoc/head.png" alt="标题" /></p>
+
+<div class="language-markdown highlighter-rouge"><pre class="highlight"><code><span class="gh"># 一级标题</span>
+</code></pre>
+</div>
+
+<div class="language-markdown highlighter-rouge"><pre class="highlight"><code><span class="gu">## 二级标题</span>
+</code></pre>
+</div>
+
+<div class="language-markdown highlighter-rouge"><pre class="highlight"><code><span class="gu">### 三级标题</span>
+</code></pre>
+</div>
+
+<p>以此类推，总共六级标题，建议在井号后加一个空格，这是最标准的 Markdown 语法。</p>
+
+<h4 id="section-2">列表</h4>
+
+<p>熟悉 HTML 的同学肯定知道有序列表与无序列表的区别，在 Markdown 下，列表的显示只需要在文字前加上 <code class="highlighter-rouge">-</code> 或 <code class="highlighter-rouge">*</code> 即可变为无序列表，有序列表则直接在文字前加 <code class="highlighter-rouge">1.</code> <code class="highlighter-rouge">2.</code> <code class="highlighter-rouge">3.</code> 符号要和文字之间加上一个字符的空格。</p>
+
+<p class="picture"><img src="/attachments/images/Academia-Writing-with-Markdown-Using-Pandoc/list.png" alt="列表" /></p>
+
+<h4 id="section-3">引用</h4>
+
+<p>如果你需要引用一小段别处的句子，那么就要用引用的格式。</p>
+
+<div class="language-markdown highlighter-rouge"><pre class="highlight"><code><span class="gt">&gt; 例如这样</span>
+</code></pre>
+</div>
+
+<p>只需要在文本前加入 <code class="highlighter-rouge">&gt;</code> 这种尖括号（大于号）即可。</p>
+
+<p class="picture"><img src="/attachments/images/Academia-Writing-with-Markdown-Using-Pandoc/ref.png" alt="引用" /></p>
+
+<h4 id="section-4">图片与链接</h4>
+
+<p>插入链接与插入图片的语法很像，区别在一个 <code class="highlighter-rouge">!</code> 号。</p>
+
+<p class="picture"><img src="/attachments/images/Academia-Writing-with-Markdown-Using-Pandoc/link.png" alt="图片与链接" /></p>
+
+<h4 id="section-5">粗体与斜体</h4>
+
+<p>Markdown 的粗体和斜体也非常简单，用两个 <code class="highlighter-rouge">*</code> 包含一段文本就是粗体的语法，用一个 <code class="highlighter-rouge">*</code> 包含一段文本就是斜体的语法。例如：</p>
+
+<div class="language-markdown highlighter-rouge"><pre class="highlight"><code><span class="gs">**这里是粗体**</span>
+
+<span class="ge">*这里是斜体*</span>
+</code></pre>
+</div>
+
+<p>生成：</p>
+
+<p><strong>这里是粗体</strong></p>
+
+<p><em>这里是斜体</em></p>
+
+<h4 id="section-6">表格</h4>
+
+<p>表格是我觉得 Markdown 比较累人的地方，例子如下：</p>
+
+<div class="language-markdown highlighter-rouge"><pre class="highlight"><code>| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
+</code></pre>
+</div>
+<p>这种语法生成的表格如下：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tables</th>
+      <th style="text-align: center">Are</th>
+      <th style="text-align: right">Cool</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>col 3 is</td>
+      <td style="text-align: center">right-aligned</td>
+      <td style="text-align: right">$1600</td>
+    </tr>
+    <tr>
+      <td>col 2 is</td>
+      <td style="text-align: center">centered</td>
+      <td style="text-align: right">$12</td>
+    </tr>
+    <tr>
+      <td>zebra stripes</td>
+      <td style="text-align: center">are neat</td>
+      <td style="text-align: right">$1</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="section-7">小结</h3>
+
+<p>通过上一章节的讲解 Markdown 的基本语法已经比较清晰，只要多加练习，配合好用的工具，写起东西来肯定会行云流水。</p>
+
+<p>Markdown 在网络写作方面十分热门，这主要源于其轻量级的设计，一篇使用 Markdown 写成的文档，即使不经过任何处理，你也能很清晰的了解文档结构，Markdown 本身的符号也不会影响到阅读。</p>
+
+<p>正是由于 Markdown 的轻量级设计，让我选择了使用它来完成论文。然而 Markdown 并不能很好的处理如参考文献，交叉引用，而这些又是学术写作里必要的。同时 Markdown 的排版问题也令人头疼，我们总不能拿 css 写出学术论文模板里的样子吧。好在开源界传说中的高帅富社区，<a href="http://www.haskell.org">haskell</a> 社区的作品 <a href="http://pandoc.org/">Pandoc</a> 帮我们解决了这些问题。</p>
+
+<h2 id="pandoc">认识 Pandoc</h2>
+
+<p>一句话：<a href="http://pandoc.org/">Pandoc</a> 是一款文件格式转换软件，可以将 Markdown，HTML，LaTeX，Microsoft Word docx 格式的文档互相转换（但不仅仅可以转换这些格式，详细请看<a href="http://www.pandoc.org/index.html">这里</a>）。</p>
+
+<p>详细来说：<a href="http://pandoc.org/">Pandoc</a> 来源于 <a href="http://www.haskell.org">haskell</a> 社区。<a href="http://www.haskell.org">haskell</a> 是什么？一种编程语言。每位资深的开发者学习它，都会有些不知所措，因为，它的编程思路不同于通常意义上类似于 C、Python、Java 这些流行的编程语言。它来自一群高智商的开发者的贡献，据说人人有 PHD 学位，是<a href="http://zh.wikipedia.org/wiki/%E5%87%BD%E6%95%B8%E5%BC%8F%E7%B7%A8%E7%A8%8B">函数式编程语言</a>的典范。当然，<a href="http://pandoc.org/">Pandoc</a> 作者 <a href="http://johnmacfarlane.net/">John MacFarlane</a> 也不例外，他是一位来自美国加州大学伯克利分校的哲学教授，研究的是认识论这类高深议题:D。</p>
+
+<p>文本格式转换，每位开发过这方面程序的技术青年，都知道它有多么痛苦；开发出的程序有多么丑陋。甚至可以说，这是个无底黑洞。事实证明，<a href="http://www.haskell.org">haskell</a> 的确是干这脏活、累活的最恰当选择。</p>
+
+<h3 id="markdown--pandoc-">为什么选择 Markdown + Pandoc 组合</h3>
+
+<ul>
+  <li>
+    <p>轻量、简单易学、上手容易。实话说学 <strong>LaTeX</strong> 已经花了不少功夫，我不想再学习另一种复杂的语言，只是为了写作文章。Markdown 符合需求。</p>
+  </li>
+  <li>
+    <p>能够顺利转换成 Word 文档。毕竟周围的人用 Word 还是不少，能够顺利和他们分享文档并批注也是我的基本需求之一。这点 Pandoc 可以解决。</p>
+  </li>
+  <li>
+    <p>能够转成 TeX 文档。Pandoc 可以将 Markdown 转到 TeX 文件，这一点对我来说吸引力非常大，有了 Tex，我可以很方便的套用 <strong>LaTeX</strong> 模板</p>
+  </li>
+</ul>
+
+<h3 id="pandoc-">Pandoc 的安装</h3>
+
+<p>首先你需要安装 <strong>LaTeX</strong> 环境。</p>
+
+<ul>
+  <li>
+    <p>Windows 用户安装 <a href="http://tug.org/texlive/">TeXlive</a>。</p>
+  </li>
+  <li>
+    <p>Ubuntu 用户直接使用命令安装</p>
+  </li>
+</ul>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>sudo apt-get install texlive-full
+</code></pre>
+</div>
+
+<ul>
+  <li>Max OS 用户安装 <a href="http://tug.org/mactex/">MaxTeX</a></li>
+</ul>
+
+<p>具体安装过程不再说明，如遇到问题，请自行百度解决。这里假设已经安装好了 <strong>LaTeX</strong> 环境。</p>
+
+<h4 id="section-8">最简单的安装办法</h4>
+
+<p>推荐不需要交叉引用，或者决定手动引用图表的用户使用。点击 <a href="https://github.com/jgm/pandoc/releases/tag/1.17.0.2">这里</a> 选择合适的系统版本下载并安装。</p>
+
+<h4 id="section-9">极客一点的做法</h4>
+
+<p>这一做法可以自行安装 pandoc 的插件，满足自己的需要。在这里我们主要需要 pandoc-crossref 来实现交叉引用。</p>
+
+<h5 id="haskell-">安装 Haskell 平台</h5>
+
+<p>在<a href="https://www.haskell.org/platform/">这里</a>下载不同系统版本的 Haskell Platform，并安装。</p>
+
+<p>接下来配置环境变量</p>
+
+<ul>
+  <li>
+    <p>Windows 用户 请自行查阅网上资料</p>
+  </li>
+  <li>
+    <p>Ubuntu 用户 将 <code class="highlighter-rouge">~/.cabal</code> 加入 <code class="highlighter-rouge">PATH</code> 中，即在 <code class="highlighter-rouge">~/.bashrc</code> 文件中增加一行（如果使用 <code class="highlighter-rouge">zsh</code> 请在 <code class="highlighter-rouge">~/.zshrc</code> 中添加）：</p>
+  </li>
+</ul>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"~/.cabal:</span><span class="nv">$PATH</span><span class="s2">"</span>
+</code></pre>
+</div>
+
+<ul>
+  <li>Max OS 用户 将 <code class="highlighter-rouge">$HOME/Library/Haskell/bin</code> 加入 <code class="highlighter-rouge">PATH</code> 中，即在 <code class="highlighter-rouge">~/.bashrc</code> 文件中增加一行（如果使用 <code class="highlighter-rouge">zsh</code> 请在 <code class="highlighter-rouge">~/.zshrc</code> 中添加）：</li>
+</ul>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/Library/Haskell/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
+</code></pre>
+</div>
+
+<h5 id="pandoc-filter">安装 Pandoc 和相关插件/Filter</h5>
+
+<p>以下命令如遇到权限问题请在每行之前添加 <code class="highlighter-rouge">sudo</code>。</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>cabal install pandoc <span class="c">#安装 pandoc</span>
+cabal install pandoc-crossref <span class="c">#安装 pandoc 交叉引用支持</span>
+cabal install pandoc-citeproc <span class="c">#安装 pandoc 参考文献支持</span>
+</code></pre>
+</div>
+
+<h3 id="section-10">命令简介</h3>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>pandoc --filter pandoc-crossref --filter pandoc-citeproc --biblio reference.bib --csl chinese-gb7714-2005-numeric.csl --latex-engine<span class="o">=</span>xelatex --template<span class="o">=</span>cqu.latex main.md -o main.pdf
+</code></pre>
+</div>
+
+<p>我一般使用上面的命令完成格式转换，具体语法如下：</p>
+
+<ul>
+  <li><code class="highlighter-rouge">-s</code>: standalone， 这个是pdf的默认选项，可以不管它。</li>
+  <li><code class="highlighter-rouge">-S</code>: smart，几乎也是默认选项，大致可以减少出错概率。</li>
+  <li><code class="highlighter-rouge">--filter pandoc-crossref</code>，使用交叉引用插件处理文档。</li>
+  <li><code class="highlighter-rouge">--filter pandoc-citeproc</code>，使用文献引用插件处理文档。注意顺序，这个必须在 <code class="highlighter-rouge">--filter pandoc-crossref</code> 后面</li>
+  <li><code class="highlighter-rouge">--biblio reference.bib</code> 告诉 Pandoc 文献的 bibtex 位置，这里我是直接放在同一目录下的，如在其他目录下，请使用相对路径或绝对路径。</li>
+  <li><code class="highlighter-rouge">--csl chinese-gb7714-2005-numeric.csl</code> 告诉 pandoc 使用的文献引用格式，这个 csl 文档直接在 zotero 上找的。</li>
+  <li><code class="highlighter-rouge">--latex-engine=xelatex</code> 我没有使用默认的 latex 引擎，而是使用 xelatex 这个引擎。</li>
+  <li><code class="highlighter-rouge">--template=cqu.latex</code> 告诉 pandoc 使用模版，这个 <code class="highlighter-rouge">cqu.latex</code> 是我在默认模版上修改的。模板可以在<a href="https://github.com/jgm/pandoc-templates">这里</a>找到。</li>
+  <li><code class="highlighter-rouge">main.md -o main.pdf</code> 告诉pandoc输入文档，<code class="highlighter-rouge">-o</code> 告诉 pandoc 输出文档。如果需要转换成别的格式，将 <code class="highlighter-rouge">pdf</code> 改成该格式对应后缀名即可。如转换成 Word 格式，将 <code class="highlighter-rouge">pdf</code> 改为 <code class="highlighter-rouge">docx</code>；转换成 <strong>LaTeX</strong> 格式，将 <code class="highlighter-rouge">pdf</code> 改为 <code class="highlighter-rouge">tex</code>。</li>
+</ul>
+
+<h2 id="section-11">写作</h2>
+
+<p>Pandoc 扩展了 Markdown 语法，作者提供了<a href="http://www.pandoc.org/README.html">详尽的文档</a>，严格按这个来写的话，应该不会出什么问题。</p>
+
+<h3 id="markdownlatex-">Markdown，<strong>LaTeX</strong> 编辑工具</h3>
+
+<p>我个人使用 sublime text 3 配合 <code class="highlighter-rouge">OmniMarkupPreviwer</code> 和 <code class="highlighter-rouge">MarkDown Editing</code> 插件来编辑 Markdown。具体可参看 Mintisan 的<a href="http://www.jianshu.com/p/aa30cc25c91b">博文</a>，这里不再叙述。</p>
+
+<p><strong>LaTeX</strong> 编辑工具同样也是 sublime text 3，配合 <code class="highlighter-rouge">LaTeXTools</code> 插件，<strong>LaTeX</strong> 的高亮和代码提示都可以完成。你可能会问，说好的用 Markdown 进行写作，还要配置 <strong>LaTeX</strong> 环境干嘛？在我的使用环境里，还需要较长编辑 <strong>LaTeX</strong> 模板和 <code class="highlighter-rouge">cls</code> 文件，所有 <strong>LaTeX</strong> 编辑环境必不可少。</p>
+
+<h3 id="pandoc-markdown-">Pandoc Markdown 扩展语法</h3>
+
+<p>Pandoc 对 Markdown 语法进行了扩展以支持交叉引用和文献引用，下面我将演示 Pandoc Markdown 扩展语法。</p>
+
+<h4 id="section-12">表格</h4>
+
+<p>表格体与标准 Markdown 语法无差异，当需要表格头时，只需在表格体下方插入一个 <strong>空行</strong>，并下一行以 <code class="highlighter-rouge">:</code> 开头，后面接上表头即可。如：</p>
+
+<div class="language-markdown highlighter-rouge"><pre class="highlight"><code>| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
+
+: Demonstration of simple table syntax.
+</code></pre>
+</div>
+
+<p>将会生成</p>
+
+<p class="picture bordered"><img src="/attachments/images/Academia-Writing-with-Markdown-Using-Pandoc/table.png" alt="表格" /></p>
+
+<h4 id="section-13">图片</h4>
+
+<p>几乎和标准 Markdown 无差异，图片显示文档中的标注性文字即为 <code class="highlighter-rouge">[]</code> 中的文字。注意，这里还可以插入 eps 或者 pdf 之类的矢量图。</p>
+
+<p class="picture bordered"><img src="/attachments/images/Academia-Writing-with-Markdown-Using-Pandoc/figure.png" alt="图片" /></p>
+
+<h4 id="section-14">数学公式</h4>
+
+<p>在 Markdown 中使用数学公式，和直接在 <strong>LaTex</strong> 中使用并无太多区别，直接使用 <code class="highlighter-rouge">$</code>（行内公式）或是<code class="highlighter-rouge">$$</code>（行间公式）符号包裹即可。</p>
+
+<p class="picture bordered"><img src="/attachments/images/Academia-Writing-with-Markdown-Using-Pandoc/formula.png" alt="公式" /></p>
+
+<h4 id="section-15">参考文献</h4>
+
+<p>基本的文中引用格式是 [@citekey]，这里的 citekey 是 Paper，zotero 之类的文献管理软件生成的 bib 文件中的，基本的格式是 <strong>作者的姓:年份+两个或以上的随机字母组合</strong>，比如 <code class="highlighter-rouge">Smith:1990xh</code>。那么我们只需要在文中写 <code class="highlighter-rouge">[@Smith:1990xh]</code> Pandoc 会自动渲染，并将这条 reference 自动插入文末。</p>
+
+<p>如果是直接引用，如 Smith (1990) pointed out “blabla” (p. 140)，可以写成：<code class="highlighter-rouge">@Smith:1990xh pointed out "blabla" (p. 140)</code> 如果有多个引用需要放在一起的话，需要用分号连接：<code class="highlighter-rouge">[@Smith:1990xh; @Smith:1990ts]</code> 如果是同一同作者的话，放心，pandoc 会自动将他们渲染成 (Smith, 1990a; 1990b)</p>
+
+<h4 id="section-16">交叉引用</h4>
+
+<p>首先我们需要标注锚点，图后面加上 <code class="highlighter-rouge"><span class="p">{</span><span class="err">#fig:figname</span><span class="p">}</span></code> ，表的后面加上 <code class="highlighter-rouge"><span class="p">{</span><span class="err">#tbl:tablename</span><span class="p">}</span></code>，公式后加上 <code class="highlighter-rouge"><span class="p">{</span><span class="err">#eq:eqname</span><span class="p">}</span></code> 即可。</p>
+
+<div class="language-markdown highlighter-rouge"><pre class="highlight"><code>| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
+
+: this is a table head{#tbl:tablename}
+</code></pre>
+</div>
+
+<div class="language-markdown highlighter-rouge"><pre class="highlight"><code><span class="p">![</span><span class="nv">this is a figure</span><span class="p">](</span><span class="sx">path/to/figure.png</span><span class="p">)</span>{#fig:figname}
+</code></pre>
+</div>
+
+<div class="language-latex highlighter-rouge"><pre class="highlight"><code><span class="p">$$</span><span class="nv">\sqrt</span><span class="p">{</span><span class="nb">x</span><span class="p">}$${</span>#eq:eqname<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>引用时与参考文献极为相似：图为 <code class="highlighter-rouge">@fig:figname</code>，表为 <code class="highlighter-rouge">@tbl:tabname</code>，公式为 <code class="highlighter-rouge">@eq:eqname</code> 即可。</p>
+
+<p class="picture bordered"><img src="/attachments/images/Academia-Writing-with-Markdown-Using-Pandoc/crossref.png" alt="交叉引用" /></p>
+
+<h3 id="section-17">调试篇</h3>
+
+<p>Pandoc本质上并不会直接生成 pdf 文件，其生成过程为 Markdown -&gt; <strong>LaTeX</strong> -&gt; <strong>pdf</strong>。所以一旦出现任何期待以外的事，我们都可以使用如下命令生成 <strong>LaTeX</strong> 源文件：</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>pandoc --filter pandoc-crossref --filter pandoc-citeproc --biblio reference.bib --csl chinese-gb7714-2005-numeric.csl --latex-engine<span class="o">=</span>xelatex --template<span class="o">=</span>cqu.latex main.md -o main.tex
+</code></pre>
+</div>
+
+<p>有了源文件，相信对会使用 <strong>LaTeX</strong> 的人来说调试起来应该没什么困难。</p>
+
+<h3 id="quick-start-demo">Quick Start Demo</h3>
+
+<p>在这里我把我的本科毕业设计论文使用的模板放在 <a href="https://github.com/zl810881283/Academia-Writing-with-Markdown-Using-Pandoc">GitHub</a> 上，大家可以在这个基础上自行添加修改。</p>
+
+<p>编译命令：</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>pandoc --filter pandoc-crossref --filter pandoc-citeproc --biblio reference.bib --csl chinese-gb7714-2005-numeric.csl --latex-engine<span class="o">=</span>xelatex --template<span class="o">=</span>cqu.latex main.md -o main.pdf
+</code></pre>
+</div>
+
+<p>生成 docx 命令：</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>pandoc --filter pandoc-crossref --filter pandoc-citeproc --biblio reference.bib --csl chinese-gb7714-2005-numeric.csl --latex-engine<span class="o">=</span>xelatex  main.md -o main.docx
+</code></pre>
+</div>
+
+<p>需要注意的是，模板中需要的字体您的系统中可能没有，<strong>请自行安装缺失字体</strong>。</p>
+
+<h2 id="section-18">总结</h2>
+
+<p>好了，现在可以放心的用 Markdown ＋ Pandoc 的组合来写论文了，数学公式，图表和参考文献都没有问题。保留 Markdown 的轻量的同时，也可以无缝转换到其它文档格式。最关键的是，和 <strong>LaTeX</strong> 也有非常完美的结合。</p>
+
+<p>总结起来，当我们需要和别人写作完成论文时，<strong>只修改 Markdown 文件</strong>，需要其他格式的文档，都由 Markdown 转换。而 Markdown 是纯文本文件很方便用 CVS 诸如 Git 进行<strong>版本管理和多人协作</strong>。</p>
+
+<p>当<strong>导师需要查阅修改</strong>时，使用如下命令进行 Markdown -&gt; docx 转换。导师修改完成后，<strong>将修改同步回 Markdown 文件中</strong>即可。</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>pandoc --filter pandoc-crossref --filter pandoc-citeproc --biblio reference.bib --csl chinese-gb7714-2005-numeric.csl --latex-engine<span class="o">=</span>xelatex  main.md -o main.doc
+</code></pre>
+</div>
+
+<p>当<strong>论文需要发表</strong>时，使用如下命令进行 Markdown -&gt; <strong>LaTeX</strong> -&gt; pdf 转换，套用期刊或会议的 <code class="highlighter-rouge">cls</code> 文件完成排版。</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>pandoc --filter pandoc-crossref --filter pandoc-citeproc --biblio reference.bib --csl chinese-gb7714-2005-numeric.csl --latex-engine<span class="o">=</span>xelatex --template<span class="o">=</span>template.latex main.md -o main.tex
+
+pandoc --filter pandoc-crossref --filter pandoc-citeproc --biblio reference.bib --csl chinese-gb7714-2005-numeric.csl --latex-engine<span class="o">=</span>xelatex --template<span class="o">=</span>template.latex main.md -o main.pdf
+
+</code></pre>
+</div>
+
+<p>注意我这里为什么转换成 tex 文件，如果你需要定制化排版一些东西，可以转换成 tex 文件对其进行修改，我想会使用 <strong>LaTeX</strong> 的人这都不是问题吧。</p>
+
+<style type="text/css">
+    .picture{
+        text-align: center;
+    }
+    .picture.bordered img{
+
+        box-shadow: 0 2px 10px 2px rgba(0,0,0,.2);
+    }
+</style>
+
+
+            </article>
+            
+            <div class="share">
+                <div class="share-component"></div>
+            </div>
+            
+            
+            <div class="comment">
+                
+  
+      
+          <div id="disqus_thread"></div>
+          <script>
+            var disqus_config = function () {
+              this.page=this.page||{};
+              this.page.url = document.location.href.replace(document.location.host,'zale.site');
+              this.page.identifier = '/articles/2016/05/Academia-Writing-Using-Markdown-and-Pandoc-(%E5%A4%8D%E4%BB%B6).html';
+              this.page.title = '使用 Pandoc Markdown 进行学术论文写作';
+            };
+            (function() { // DON'T EDIT BELOW THIS LINE
+              var d = document, s = d.createElement('script');
+
+              s.type = 'text/javascript';
+              s.async = true;
+              var shortname = 'zale';
+
+              s.src = '//' + shortname + '.disqus.com/embed.js';
+
+              s.setAttribute('data-timestamp', +new Date());
+              (d.head || d.body).appendChild(s);
+            })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+      
+    
+
+            </div>
+            
+        </div>
+        <div class="column one-fourth">
+            
+<h3>Search</h3>
+<form action="get" id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+    <button class="btn btn-default" type="submit"><span class="octicon octicon-search"></span></button>
+</form>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="/assets/css/modules/sidebar-search.css">
+
+
+            <h3>Directory</h3>
+<div id="post-directory-module">
+    <section class="post-directory">
+        <!-- Links that trigger the jumping -->
+        <!-- Added by javascript below -->
+        <dl></dl>
+    </section>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("article h2").each(function (index) {
+            $(".post-directory dl").append("<dt><a class=\"jumper\" href=#" +
+                    $(this).attr("id")
+                    + ">"
+                    + $(this).text()
+                    + "</a></dt>");
+
+            var children = $(this).nextUntil("h2", "h3");
+
+            children.each(function (index) {
+                $(".post-directory dl").append("<dd><a class=\"jumper\" href=#" +
+                        $(this).attr("id")
+                        + ">"
+                        + "&nbsp;&nbsp;- " + $(this).text()
+                        + "</a></dd>");
+            });
+        });
+
+        //排除小设备下的fixed布局
+        if ($(document).width() > parseFloat($('body').css('fontSize')) * 50) {
+
+            var fixmeTop = $('#post-directory-module').offset().top - 80;       // get initial position of the element
+            $(window).scroll(function () {                  // assign scroll event listener
+
+                var currentScroll = $(window).scrollTop(); // get current position
+
+                if (currentScroll >= fixmeTop) {           // apply position: fixed if you
+                    $('#post-directory-module').css({                      // scroll to that element or below it
+                        top: '80px',
+                        position: 'fixed',
+                    });
+                } else {                                   // apply position: static
+                    $('#post-directory-module').css({                      // if you scroll above it
+                        position: 'inherit',
+                    });
+                }
+            });
+        }
+        $('#post-directory-module a').parent().click(function ($event) {
+            $(this).find('a').click();
+        });
+    });
+
+
+</script>
+        </div>
+    </div>
+</section>
+<!-- /section.content -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {
+  inlineMath: [['$','$'], ['\\(','\\)']]
+  }
+});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2015
+                    <span title="Zale">Zale</span>
+                    <a href="javascript:$('body, html').animate({scrollTop: 0}, 600)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:$('body, html').animate({scrollTop: 0}, 600)" >TOP</a>
+                </li>
+            </ul>
+            <a href="https://github.com/zl810881283/zl810881283.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="/" title="Home" target="">Home</a>
+                </li>
+                
+                <li>
+                    <a href="/categories" title="Categories" target="">Categories</a>
+                </li>
+                
+                <li>
+                    <a href="/wiki" title="Wiki" target="">Wiki</a>
+                </li>
+                
+                <li>
+                    <a href="/bookmark" title="Bookmark" target="">Bookmark</a>
+                </li>
+                
+                <li>
+                    <a href="/open-source" title="Open-source" target="">Open-source</a>
+                </li>
+                
+                <li>
+                    <a href="/about" title="About" target="">About</a>
+                </li>
+                
+                <li><a href="/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+    
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-76860417-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    
+    <script src="/assets/js/hashchange.js"></script>
+    </body>
+</html>
