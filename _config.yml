@@ -28,7 +28,7 @@ github_account: zl810881283
 resumes:
   -
     lang: 中文简历
-    link: /attachments/resumes/zhangle_resume_cn.pdf
+    link: 
     icon: cn
   -
     lang: English CV
@@ -154,6 +154,6 @@ skill_software_keywords: [Java, C, C++, NodeJs, Python, MySQL, Oracle, SQLite, M
 skill_j2ee_keywords: [Spring, SpringMVC, Struct, Hibernet, MyBatis, JSP]
 skill_web_keywords: [HTML, CSS, Javascript, Jquery, Bootstrap, Angular, Express, ThinkJs, ]
 skill_mobile_app_keywords: [Android, Ionic, Cordova]
-popular_repos: ['ppt', 'RandomName', 'Java-BackGammon', 'zl810881283.github.io', 'project_template']
-contribute_repos: ['academic-zl/SEMAGE', 'outsourcingproject/auction', 'outsourcingproject/zhazha.com', 'outsourcingproject/wechart_shop']
-personal_titles: [ 'Zale plans to be a Full Stack developer', 'Zale dreams to be a CTO', 'Zale is now study in Chongqing university', 'Zale loves coding and innovating', 'Zale has girlfriend now, so not available :D', 'Zale is so cool, right?']
+# popular_repos: ['ppt', 'RandomName', 'Java-BackGammon', 'zl810881283.github.io', 'project_template']
+# contribute_repos: ['academic-zl/SEMAGE', 'outsourcingproject/auction', 'outsourcingproject/zhazha.com', 'outsourcingproject/wechart_shop']
+personal_titles: [ '激情创业', '众志成城', '永不言败']
